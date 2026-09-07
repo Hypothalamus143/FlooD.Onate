@@ -10,5 +10,19 @@
 <body>
     {% block content %}
     {% endblock %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %}class="{{message.tags}}"{% endif %}>
+                {{ message }}
+                <button class="close-toast" onclick="this.parentElement.remove()">✕</button>
+            </li>
+            
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <script src="{% static 'js/script.js' %}">
+
+    </script>
 </body>
 </html>

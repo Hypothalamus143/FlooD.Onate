@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
 from .forms import RegisterUser
 # Create your views here.
 
@@ -9,6 +9,7 @@ def register(request):
         form = RegisterUser(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Registered Successfully")
             return redirect("users:login")
     else:
             form = RegisterUser()
