@@ -3,6 +3,6 @@
 {% block content %}
     <h1>Welcome {{request.session.first_name}}</h1>
     <div>
-        <a href="{% url 'users:logout' %}">Log Out</a>
+        <a href="{% url 'home:logout' %}">Log Out</a>
     </div>
 {% endblock %}
