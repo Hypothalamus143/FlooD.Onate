@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{%block title%}User Settings{% endblock %}
+{% block content %}
+    <h1>User Settings</h1>
+    <form action="{% url 'user_settings:user_settings' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="dark_mode">Dark Mode</label>
+            <input type="checkbox" name="dark_mode" {% if user_settings.dark_mode %}checked{% endif %} value="on">
+        </div>
+        <div>
+            <label for="email_notifications">Email Notifications</label>
+            <input type="checkbox" name="email_notifications" {% if user_settings.email_notifications %}checked{% endif %} value="on">
+        </div>
+        <div>
+            <input type="submit" value="Save Changes">
+        </div>
+    </form>
+    <div>
+        <a href="{% url 'home:logout' %}">Log Out</a>
+    </div>
+{% endblock %}
