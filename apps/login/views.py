@@ -12,5 +12,7 @@ def login(request):
             return redirect("home:home")
             
     else:
+        if request.user.is_authenticated:
+            return redirect("home:home")
         form = AuthenticationForm()
     return render(request, "login/login.html", {"form":form})

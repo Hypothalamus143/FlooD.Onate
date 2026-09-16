@@ -14,5 +14,7 @@ def register(request):
             messages.success(request, "Registered Successfully")
             return redirect("login:login")
     else:
-            form = RegisterUser()
+       if request.user.is_authenticated:
+           return redirect("home:home")
+       form = RegisterUser()
     return render(request, "register/register.html", {"form" : form})
