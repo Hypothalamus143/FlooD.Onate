@@ -1,14 +1,5 @@
 {% extends 'base.html' %}
 {%block title%}Home{% endblock %}
 {% block content %}
-    <h1>Welcome {{request.session.first_name}}</h1>
-    <div>
-        <a href="{% url 'home:logout' %}">Log Out</a>
-    </div>
-    <div>
-        <a href="{% url 'profile:profile' %}">Profile</a>
-    </div>
-    <div>
-        <a href="{% url 'user_settings:user_settings' %}">Settings</a>
-    </div>
+    <h1>Welcome {{user.first_name}}</h1>
 {% endblock %}

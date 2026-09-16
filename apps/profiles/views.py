@@ -1,21 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from ..users.models import User
-from ..profiles.models import Profile
+from .models import Profile
+from .forms import ProfileForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+@login_required
 def profile(request):
+    user = request.user
+    instance = Profile.objects.get(user=user)
     if request.method == "POST":
-            bio = request.POST.get("bio")
-            username = request.session.get("username")
-            user = get_object_or_404(User, username=username)
-            profile = get_object_or_404(Profile, user=user)
-            profile.bio = bio
-            profile.save()
-            return redirect("profile:profile")
-    if request.session.get('username', False):
-        username = request.session.get('username', False)
-        user = User.objects.get(username=username)
-        profile = Profile.objects.get(user=user)
-        return render(request, "profile/profile.html", {"profile":profile, "user": user})
+        form = ProfileForm(request.POST, instance=instance)
+        form.save()
+        return redirect("profile:profile")
     else:
-        return redirect("login:login")
-    
+        form = ProfileForm(instance=instance)
+        return render(request, "profile/profile.html", {"form":form})

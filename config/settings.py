@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "apps.users",
     "apps.user_settings",
     "apps.login",
+    "apps.logout",
     "apps.home",
     "apps.register"
 ]
@@ -126,6 +127,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = "login:login"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/

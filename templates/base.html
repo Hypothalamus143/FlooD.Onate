@@ -8,6 +8,26 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <ul class="navbar-links">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'home:home' %}">Dashboard</a></li>
+                    <li><a href="{% url 'profile:profile' %}">Profile</a></li>
+                    <li><a href="{% url 'user_settings:user_settings' %}">User Settings</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="navbar-logout">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login:login' %}">Login</a></li>
+                    <li><a href="{% url 'register:register' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
     {% block content %}
     {% endblock %}
     {% if messages %}

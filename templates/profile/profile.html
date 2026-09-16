@@ -4,15 +4,10 @@
     <h1>Name: {{user.first_name}} {{user.last_name}}</h1>
     <form action="{% url 'profile:profile' %}" method="POST">
         {% csrf_token %}
-        <div>
-            <label for="bio">Bio</label>
-            <textarea name="bio" id="bio">{{profile.bio}}</textarea>
-        </div>
+
+        {{ form.as_div }}
         <div>
             <input type="submit" value="Save Changes">
         </div>
     </form>
-    <div>
-        <a href="{% url 'home:home' %}">Home</a>
-    </div>
 {% endblock %}
