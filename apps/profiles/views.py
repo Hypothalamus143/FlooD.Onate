@@ -14,4 +14,4 @@ def profile(request):
         return redirect("profile:profile")
     else:
         form = ProfileForm(instance=instance)
-        return render(request, "profile/profile.html", {"form":form})
+        return render(request, "profile/profile.html", {"form":form, "profile":instance})

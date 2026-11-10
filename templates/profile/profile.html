@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 {%block title%}Profile{% endblock %}
 {% block content %}
     <h1>Name: {{user.first_name}} {{user.last_name}}</h1>
+    {% if profile.profile_image %}
+        <img src="{{ profile.profile_image.url }}" alt="{{ profile.user.username }}'s Avatar" width="150" height="150">
+    {% else %}
+        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+    {% endif %}
     <form action="{% url 'profile:profile' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
