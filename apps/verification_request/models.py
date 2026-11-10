@@ -3,8 +3,8 @@ from ..users.models import User
 # Create your models here.
 class VerificationRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    last_update_date = models.DateField()
-    status = models.IntegerField()
+    last_update_date = models.DateField(auto_now_add=True)
+    status = models.IntegerField(default=0)
     message = models.TextField(null=True, blank=True)
     front_id = models.ImageField(upload_to='front_ids/')
     back_id = models.ImageField(upload_to='back_ids/')

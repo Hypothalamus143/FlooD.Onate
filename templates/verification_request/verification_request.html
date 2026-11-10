@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Verification Request{% endblock %}
+{% block content %}
+    <h1>Verification Request</h1>
+    <form action="{% url 'verification_request:verification_request' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_div }}
+        <div>
+            <input type="submit" value="Save Changes">
+        </div>
+    </form>
+{% endblock %}

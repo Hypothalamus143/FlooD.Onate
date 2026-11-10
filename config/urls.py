@@ -26,7 +26,8 @@ urlpatterns = [
     path("logout/", include("apps.logout.urls")),
     path("register/", include("apps.register.urls")),
     path("user_settings/", include("apps.user_settings.urls")),
-    path("profile/", include("apps.profiles.urls"))
+    path("profile/", include("apps.profiles.urls")),
+    path("verification_request/", include("apps.verification_request.urls"))
 ]
 
 # Serve media files in development
