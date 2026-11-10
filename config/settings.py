@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     "apps.login",
     "apps.logout",
     "apps.home",
-    "apps.register"
+    "apps.register",
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
