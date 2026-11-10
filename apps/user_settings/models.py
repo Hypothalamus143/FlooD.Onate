@@ -7,4 +7,4 @@ class UserSettings(models.Model):
     email_notifications = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Settings for {self.user.__str__}"
+        return f"Settings for {self.user.__str__()}"

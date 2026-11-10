@@ -10,4 +10,4 @@ class Profile(models.Model):
         upload_to="profiles/"
     )
     def __str__(self):
-        return self.user.__str__
+        return self.user.__str__()
