@@ -9,7 +9,7 @@ def profile(request):
     user = request.user
     instance = Profile.objects.get(user=user)
     if request.method == "POST":
-        form = ProfileForm(request.POST, instance=instance)
+        form = ProfileForm(request.POST, request.FILES, instance=instance)
         form.save()
         return redirect("profile:profile")
     else:
