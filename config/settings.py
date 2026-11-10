@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.logout",
     "apps.home",
     "apps.register",
+    "apps.verification_request",
     'django_cleanup.apps.CleanupConfig',
 ]
 
