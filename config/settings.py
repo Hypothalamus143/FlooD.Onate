@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     "apps.home",
     "apps.register",
     "apps.verification_request",
+    "apps.donation",
+    "apps.donation_drive",
+    "apps.location",
+    "apps.accounts",
     'django_cleanup.apps.CleanupConfig',
 ]
 
