@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Moderator{% endblock %}
+{% block content %}
+    <h1>Verification Requests</h1>
+    
+        <ul>
+            {% for v in verification_requests %}
+                <li><a href="/">{{v.user.last_name}}, {{v.user.first_name}}</a></li>
+            {% endfor %}
+        </ul>
+    
+{% endblock %}
