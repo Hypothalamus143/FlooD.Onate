@@ -3,11 +3,17 @@
 {%block title%}Moderator{% endblock %}
 {% block content %}
     <h1>Verification Requests</h1>
-    
-        <ul>
+        <table>
+            <th>User ID</th>
+            <th>Last Name</th>
+            <th>First Name</th>
             {% for v in verification_requests %}
-                <li><a href="/">{{v.user.last_name}}, {{v.user.first_name}}</a></li>
+                <tr>
+                    <td><a href="{% url 'moderator:verification_details' v.user.id %}">{{v.user.id}}</a></td>
+                    <td>{{v.user.last_name}}</td>
+                    <td>{{v.user.first_name}}</td>
+                </tr>       
             {% endfor %}
-        </ul>
+        </table>
     
 {% endblock %}
