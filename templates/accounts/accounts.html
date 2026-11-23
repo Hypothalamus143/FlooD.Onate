@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{%block title%}Accounts{% endblock %}
+{% block content %}
+    <h1>Accounts</h1>
+    <ul>
+        {% if civilian_account %}
+            <li>Civilian Account</li>
+        {% endif %}
+        {% if official_account %}
+            <li>Official Account</li>
+        {% endif %}
+        {% if moderator_account %}
+            <li><a href="{% url 'moderator:moderator' %}">Moderator Account</a></li>
+        {% endif %}
+    </ul>
+    
+{% endblock %}

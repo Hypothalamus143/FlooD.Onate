@@ -16,6 +16,7 @@
                     <li><a href="{% url 'profile:profile' %}">Profile</a></li>
                     <li><a href="{% url 'user_settings:user_settings' %}">User Settings</a></li>
                     <li><a href="{% url 'verification_request:verification_request' %}">Verify</a></li>
+                    <li><a href="{% url 'accounts:accounts' %}">Accounts</a></li>
                     <li>
                         <form method="post" action="{% url 'logout:logout' %}">
                             {% csrf_token %}
