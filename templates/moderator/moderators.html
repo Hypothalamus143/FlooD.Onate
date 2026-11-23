@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Moderator{% endblock %}
+{% block content %}
+    <h1>Moderators</h1>
+        <table>
+            <th>User ID</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            {% for m in moderators %}
+                <tr>
+                    <td>{{m.user.id}}</a></td>
+                    <td>{{m.user.last_name}}</td>
+                    <td>{{m.user.first_name}}</td>
+                </tr>       
+            {% endfor %}
+        </table>
+    
+{% endblock %}
