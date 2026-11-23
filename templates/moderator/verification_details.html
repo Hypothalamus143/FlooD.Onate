@@ -3,8 +3,27 @@
 {%block title%}Profile{% endblock %}
 {% block content %}
     <h1>Verification Request</h1>
+    <h2>Front ID</h2>
     {% if verification_request.front_id %}
         <img src="{{ verification_request.front_id.url }}" width="150" height="150">
+    {% else %}
+        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+    {% endif %}
+    <h2>Back ID</h2>
+    {% if verification_request.back_id %}
+        <img src="{{ verification_request.back_id.url }}" width="150" height="150">
+    {% else %}
+        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+    {% endif %}
+    <h2>Selfie</h2>
+    {% if verification_request.selfie %}
+        <img src="{{ verification_request.selfie.url }}" width="150" height="150">
+    {% else %}
+        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+    {% endif %}
+    <h2>Incumbency Cert</h2>
+    {% if verification_request.incumbency_cert %}
+        <img src="{{ verification_request.incumbency_cert.url }}" width="150" height="150">
     {% else %}
         <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
     {% endif %}
