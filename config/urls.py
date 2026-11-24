@@ -30,7 +30,8 @@ urlpatterns = [
     path("verification_request/", include("apps.verification_request.urls")),
     path("moderator/", include("apps.moderator.urls")),
     path("accounts/", include("apps.accounts.urls")),
-    path("donation_drive/", include("apps.donation_drive.urls"))
+    path("donation_drive/", include("apps.donation_drive.urls")),
+    path("donation/", include("apps.donation.urls")),
 ]
 
 # Serve media files in development

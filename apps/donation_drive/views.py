@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from ..accounts.models import OfficialAccount
+from ..accounts.models import OfficialAccount, CivilianAccount
 from .models import DonationDrive
 from .forms import DonationDriveForm
 # Create your views here.
@@ -21,8 +21,9 @@ def all_donation_drives(request):
 @login_required
 def donation_drive_details(request, id):
     official_account = OfficialAccount.objects.filter(user=request.user).first()
+    civilian_accont = CivilianAccount.objects.get(user=request.user)
     donation_drive = DonationDrive.objects.get(id=id)
-    return render(request, "donation_drive/donation_drive_details.html", {"donation_drive":donation_drive, "official_account":official_account})
+    return render(request, "donation_drive/donation_drive_details.html", {"donation_drive":donation_drive, "official_account":official_account, "civilian_account":civilian_accont})
 
 @login_required
 def create_donation_drive(request):
