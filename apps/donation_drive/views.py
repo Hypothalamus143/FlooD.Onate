@@ -36,7 +36,7 @@ def create_donation_drive(request):
             donation_drive = form.save(commit=False)
             donation_drive.official_account = official_account
             donation_drive.save()
-            return redirect("donation_drive:donation_drive")
+            return redirect("donation_drive:official_account_donation_drives")
         else:
             print("invalid")
     form = DonationDriveForm()
