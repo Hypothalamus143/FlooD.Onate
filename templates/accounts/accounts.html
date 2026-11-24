@@ -7,7 +7,7 @@
             <li>Civilian Account</li>
         {% endif %}
         {% if official_account %}
-            <li>Official Account</li>
+            <li><a href="{% url 'accounts:official_account' %}">Official Account</a></li>
         {% endif %}
         {% if moderator_account %}
             <li><a href="{% url 'moderator:moderator' %}">Moderator Account</a></li>

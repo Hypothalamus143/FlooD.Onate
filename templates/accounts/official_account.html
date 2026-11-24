@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{%block title%}Official Account{% endblock %}
+{% block content %}
+    <h1>Official Account</h1>
+    <ul>
+        <li><a href="{% url 'donation_drive:donation_drive' %}">Donation Drives</a></li>
+        <li>Create New Donation Drive</li>
+    </ul>
+{% endblock %}

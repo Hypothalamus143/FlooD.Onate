@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Donation Drive{% endblock %}
+{% block content %}
+    <h1>Donation Drives</h1>
+        <table>
+            <th>ID</th>
+            <th>Baranggay</th>
+            <th>Start Date</th>
+            <th>Duration</th>
+            <th>Target Amount</th>
+            <th>Gathered Amount</th>
+            <th>Status</th>
+            {% for d in donation_drives %}
+                <tr>
+                    <!-- <td><a href="{% url 'moderator:verification_details' v.user.id %}">{{v.user.id}}</a></td> -->
+                    <td>{{d.id}}</td>
+                    <td>{{v.user.baranggay}}</td>
+                    <td>{{v.user.start_date}}</td>
+                    <td>{{v.user.duration}}</td>
+                    <td>{{v.user.target_amount}}</td>
+                    <td>{{v.user.gathered_amount}}</td>
+                    <td>{{v.user.status}}</td>
+                </tr>       
+            {% endfor %}
+        </table>
+    
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from ..accounts.models import CivilianAccount, OfficialAccount, ModeratorAccount
 # Create your views here.
@@ -9,3 +9,11 @@ def accounts(request):
     official_account = OfficialAccount.objects.filter(user=user).first()
     moderator_account = ModeratorAccount.objects.filter(user=user).first()
     return render(request, "accounts/accounts.html", {"civilian_account":civilian_account, "official_account": official_account, "moderator_account": moderator_account})
+
+@login_required
+def official_account(request):
+    user = request.user
+    official_account = OfficialAccount.objects.filter(user=user).first()
+    if official_account is None:
+        return redirect("home:home")
+    return render(request, "accounts/official_account.html", { "official_account": official_account})
