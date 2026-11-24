@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Donation Drive Details{% endblock %}
+{% block content %}
+    <h1>Verification Request</h1>
+    <h2>Donation Drive Details</h2>
+    <table>
+        <tr>
+            <td><b>Baranggay</b></td>
+            <td>{{ donation_drive.baranggay}}</td>
+        </tr>
+        <tr>
+            <td><b>Start Date</b></td>
+            <td>{{ donation_drive.start_date }}</td>
+        </tr>
+        <tr>
+            <td><b>Duration</b></td>
+            <td>{{donation_drive.donations }}</td>
+        </tr>
+        <tr>
+            <td><b>Target Amount</b></td>
+            <td>{{ donation_drive.target_amount }}</td>
+        </tr>
+        <tr>
+            <td><b>Gathered Amount</b></td>
+            <td>{{ donation_drive.gathered_amount }}</td>
+        </tr>
+        <tr>
+            <td><b>Status</b></td>
+            <td>{{ donation_drive.status }}</td>
+        </tr>
+    </table>
+{% endblock %}

@@ -19,6 +19,12 @@ def all_donation_drives(request):
     return render(request, "donation_drive/all_donation_drives.html", {"donation_drives":donation_drives})
 
 @login_required
+def donation_drive_details(request, id):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    donation_drive = DonationDrive.objects.get(id=id)
+    return render(request, "donation_drive/donation_drive_details.html", {"donation_drive":donation_drive, "official_account":official_account})
+
+@login_required
 def create_donation_drive(request):
     official_account = OfficialAccount.objects.filter(user=request.user).first()
     if official_account is None:

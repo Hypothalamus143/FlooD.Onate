@@ -13,7 +13,7 @@
             <th>Status</th>
             {% for d in donation_drives %}
                 <tr>
-                    <td>{{d.id}}</td>
+                    <td><a href="{% url 'donation_drive:donation_drive_details' d.id  %}">{{d.id}}</a></td>
                     <td>{{d.baranggay}}</td>
                     <td>{{d.start_date}}</td>
                     <td>{{d.duration}}</td>
