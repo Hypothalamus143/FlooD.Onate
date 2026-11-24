@@ -13,14 +13,13 @@
             <th>Status</th>
             {% for d in donation_drives %}
                 <tr>
-                    <!-- <td><a href="{% url 'moderator:verification_details' v.user.id %}">{{v.user.id}}</a></td> -->
                     <td>{{d.id}}</td>
-                    <td>{{v.user.baranggay}}</td>
-                    <td>{{v.user.start_date}}</td>
-                    <td>{{v.user.duration}}</td>
-                    <td>{{v.user.target_amount}}</td>
-                    <td>{{v.user.gathered_amount}}</td>
-                    <td>{{v.user.status}}</td>
+                    <td>{{d.baranggay}}</td>
+                    <td>{{d.start_date}}</td>
+                    <td>{{d.duration}}</td>
+                    <td>{{d.target_amount}}</td>
+                    <td>{{d.gathered_amount}}</td>
+                    <td>{{d.status}}</td>
                 </tr>       
             {% endfor %}
         </table>

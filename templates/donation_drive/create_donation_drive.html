@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Donation Drive{% endblock %}
+{% block content %}
+    <h1>Create Donation Drive</h1>
+        <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_div }}
+        <div>
+            <input type="submit" value="Save Changes">
+        </div>
+    </form>
+{% endblock %}

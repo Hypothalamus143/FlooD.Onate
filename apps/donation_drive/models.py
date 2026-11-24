@@ -8,8 +8,8 @@ class DonationDrive(models.Model):
     start_date = models.DateField()
     duration = models.DecimalField(decimal_places=2, max_digits=10)
     target_amount = models.DecimalField(decimal_places=2, max_digits=12)
-    gathered_amount = models.DecimalField(decimal_places=2, max_digits=12)
-    status = models.IntegerField()
+    gathered_amount = models.DecimalField(decimal_places=2, max_digits=12, default=0)
+    status = models.IntegerField(default=1)
 
 class Receipt(models.Model):
     pk = models.CompositePrimaryKey('donation_drive', 'receipt_no')
