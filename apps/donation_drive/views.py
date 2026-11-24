@@ -16,7 +16,7 @@ def official_account_donation_drives(request):
 @login_required
 def all_donation_drives(request):
     donation_drives = DonationDrive.objects.all()
-    return render(request, "donation_drive/all_donation_drives.html", {"donation_drives":donation_drives})
+    return render(request, "donation_drive/donation_drives.html", {"donation_drives":donation_drives})
 
 @login_required
 def donation_drive_details(request, id):
