@@ -9,4 +9,13 @@ class Donation(models.Model):
     donated_amount = models.DecimalField(max_digits=12, decimal_places=2)
     used_amount = models.DecimalField(max_digits=12, decimal_places=2)
     returned_amount = models.DecimalField(max_digits=12, decimal_places=2)
-    
+    donation_reference_no = models.TextField(max_length=100)
+    donation_reference_image = models.ImageField(
+        upload_to="donation_reference_images/"
+    )
+    return_reference_no = models.TextField(max_length=100, blank=True, null=True)
+    donation_reference_image = models.ImageField(
+        blank=True,
+        null = True,
+        upload_to="return_reference_images/"
+    )
