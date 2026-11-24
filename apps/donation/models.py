@@ -19,3 +19,4 @@ class Donation(models.Model):
         null = True,
         upload_to="return_reference_images/"
     )
+    status = models.IntegerField(default=0)

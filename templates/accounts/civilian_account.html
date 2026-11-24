@@ -6,24 +6,26 @@
         <li><a href="{% url 'donation_drive:all_donation_drives' %}">Look for Donation Drives</a></li>
     </ul>
     <h1>Donations</h1>
-        <table>
-            <th>ID</th>
-            <th>Reference No</th>
-            <th>Donation Drive ID</th>
-            <th>Barangay</th>
-            <th>Donation Amount</th>
-            <th>Used Amount</th>
-            <th>Returned Amount</th>
-            {% for d in donations %}
-                <tr>
-                    <td>{{d.id}}</td>
-                    <td>{{d.donation_reference_no}}</td>
-                    <td><a href="{% url 'donation_drive:donation_drive_details' d.donation_drive.id  %}">{{d.donation_drive.id}}</a>a</td>
-                    <td>{{d.donation_drive.baranggay}}</td>
-                    <td>{{d.donated_amount}}</td>
-                    <td>{{d.used_amount}}</td>
-                    <td>{{d.returned_amount}}</td>
-                </tr>       
-            {% endfor %}
-        </table>
+    <table>
+        <th>ID</th>
+        <th>Reference No</th>
+        <th>Donation Drive ID</th>
+        <th>Barangay</th>
+        <th>Donation Amount</th>
+        <th>Used Amount</th>
+        <th>Returned Amount</th>
+        <th>Status</th>
+        {% for d in donations %}
+            <tr>
+                <td>{{d.id}}</td>
+                <td>{{d.donation_reference_no}}</td>
+                <td><a href="{% url 'donation_drive:donation_drive_details' d.donation_drive.id  %}">{{d.donation_drive.id}}</a>a</td>
+                <td>{{d.donation_drive.baranggay}}</td>
+                <td>{{d.donated_amount}}</td>
+                <td>{{d.used_amount}}</td>
+                <td>{{d.returned_amount}}</td>
+                <td>{{d.status}}</td>
+            </tr>       
+        {% endfor %}
+    </table>
 {% endblock %}

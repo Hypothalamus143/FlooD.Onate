@@ -2,8 +2,7 @@
 {% load static %}
 {%block title%}Donation Drive Details{% endblock %}
 {% block content %}
-    <h1>Verification Request</h1>
-    <h2>Donation Drive Details</h2>
+    <h1>Donation Drive Details</h1>
     <table>
         <tr>
             <td><b>Baranggay</b></td>
@@ -33,6 +32,9 @@
     <ul>
         {% if civilian_account %}
         <li><a href="{% url 'donation:donation' donation_drive.id %}">Donate</a></li>
+        {% endif %}
+        {% if official_account %}
+        <li><a href="{% url 'donation_drive:donation_drive_management' donation_drive.id %}">Manage Donation Drive</a></li>
         {% endif %}
     </ul>
 {% endblock %}

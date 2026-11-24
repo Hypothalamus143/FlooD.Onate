@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Donation Drive Management{% endblock %}
+{% block content %}
+    <h1>Donation Drive Management</h1>
+    <h2>Donation Drive Details</h2>
+    <table>
+        <tr>
+            <td><b>Baranggay</b></td>
+            <td>{{ donation_drive.baranggay}}</td>
+        </tr>
+        <tr>
+            <td><b>Start Date</b></td>
+            <td>{{ donation_drive.start_date }}</td>
+        </tr>
+        <tr>
+            <td><b>Duration</b></td>
+            <td>{{donation_drive.donations }}</td>
+        </tr>
+        <tr>
+            <td><b>Target Amount</b></td>
+            <td>{{ donation_drive.target_amount }}</td>
+        </tr>
+        <tr>
+            <td><b>Gathered Amount</b></td>
+            <td>{{ donation_drive.gathered_amount }}</td>
+        </tr>
+        <tr>
+            <td><b>Status</b></td>
+            <td>{{ donation_drive.status }}</td>
+        </tr>
+    </table>
+    <h2>Donations</h2>
+    <table>
+        <th>ID</th>
+        <th>Reference No</th>
+        <th>Donation Amount</th>
+        <th>Used Amount</th>
+        <th>Returned Amount</th>
+        <th>Status</th>
+        {% for d in donations %}
+            <tr>
+                <td>{{d.id}}</td>
+                <td>{{d.donation_reference_no}}</td>
+                <td>{{d.donated_amount}}</td>
+                <td>{{d.used_amount}}</td>
+                <td>{{d.returned_amount}}</td>
+                <td>{{d.status}}</td>
+            </tr>       
+        {% endfor %}
+    </table>
+{% endblock %}
