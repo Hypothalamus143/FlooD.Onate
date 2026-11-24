@@ -11,4 +11,18 @@
             <input type="submit" value="Save Changes">
         </div>
     </form>
+    <div>
+        {% if verification_request %}
+            <div>
+                <label>Status: </label>
+                {% if verification_request.status == 0 %}
+                    <b>Pending</b>
+                {% endif %}
+            </div>
+            <div>
+                <label>Message: </label>
+                <textarea disabled>{{ verification_request.message }}</textarea>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
