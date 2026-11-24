@@ -5,12 +5,18 @@ from .models import DonationDrive
 from .forms import DonationDriveForm
 # Create your views here.
 @login_required
-def donation_drive(request):
+
+def official_account_donation_drives(request):
     official_account = OfficialAccount.objects.filter(user=request.user).first()
     donation_drives = DonationDrive.objects.filter(official_account=official_account)
     if official_account is None:
         return redirect("home:home")
-    return render(request, "donation_drive/donation_drive.html", {"donation_drives":donation_drives})
+    return render(request, "donation_drive/donation_drives.html", {"donation_drives":donation_drives})
+
+@login_required
+def all_donation_drives(request):
+    donation_drives = DonationDrive.objects.all()
+    return render(request, "donation_drive/all_donation_drives.html", {"donation_drives":donation_drives})
 
 @login_required
 def create_donation_drive(request):

@@ -4,6 +4,7 @@ from . import views
 app_name = "donation_drive"
 
 urlpatterns = [
-    path('', views.donation_drive, name='donation_drive'),
+    path('', views.all_donation_drives, name='all_donation_drives'),
+    path('official_account/', views.official_account_donation_drives, name='official_account_donation_drives'),
     path('create_donation_drive', views.create_donation_drive, name='create_donation_drive'),
 ]

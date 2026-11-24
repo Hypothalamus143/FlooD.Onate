@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Donation Drive{% endblock %}
+{% block content %}
+    <h1>Donation Drives</h1>
+        <table>
+            <th>ID</th>
+            <th>Baranggay</th>
+            <th>Start Date</th>
+            <th>Duration</th>
+            <th>Target Amount</th>
+            <th>Gathered Amount</th>
+            <th>Status</th>
+            {% for d in donation_drives %}
+                <tr>
+                    <td>{{d.id}}</td>
+                    <td>{{d.baranggay}}</td>
+                    <td>{{d.start_date}}</td>
+                    <td>{{d.duration}}</td>
+                    <td>{{d.target_amount}}</td>
+                    <td>{{d.gathered_amount}}</td>
+                    <td>{{d.status}}</td>
+                </tr>       
+            {% endfor %}
+        </table>
+    
+{% endblock %}

@@ -17,3 +17,9 @@ def official_account(request):
     if official_account is None:
         return redirect("home:home")
     return render(request, "accounts/official_account.html", { "official_account": official_account})
+
+@login_required
+def civilian_account(request):
+    user = request.user
+    civilian_account = CivilianAccount.objects.get(user=user)
+    return render(request, "accounts/civilian_account.html", { "civilian_account": civilian_account})

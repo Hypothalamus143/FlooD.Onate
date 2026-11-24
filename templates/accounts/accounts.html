@@ -4,7 +4,7 @@
     <h1>Accounts</h1>
     <ul>
         {% if civilian_account %}
-            <li>Civilian Account</li>
+            <li><a href="{% url 'accounts:civilian_account' %}">Civilian Account</a></li>
         {% endif %}
         {% if official_account %}
             <li><a href="{% url 'accounts:official_account' %}">Official Account</a></li>
