@@ -14,8 +14,7 @@ def accounts(request):
 
 @login_required
 def official_account(request):
-    user = request.user
-    official_account = OfficialAccount.objects.filter(user=user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
     if official_account is None:
         return redirect("home:home")
     return render(request, "accounts/official_account.html", { "official_account": official_account})

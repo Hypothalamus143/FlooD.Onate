@@ -6,18 +6,13 @@ from .forms import DonationDriveForm, ReceiptForm, EventPhotoForm, AffidavitOfLi
 from ..donation.models import Donation
 # Create your views here.
 @login_required
-
-def official_account_donation_drives(request):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
-    donation_drives = DonationDrive.objects.filter(official_account=official_account)
-    if official_account is None:
-        return redirect("home:home")
-    return render(request, "donation_drive/donation_drives.html", {"donation_drives":donation_drives})
-
-@login_required
-def all_donation_drives(request):
+def donation_drives(request):
+    official_account = OfficialAccount.objects.get(user=request.user)
     donation_drives = DonationDrive.objects.all()
-    return render(request, "donation_drive/donation_drives.html", {"donation_drives":donation_drives})
+    official_account_id = request.GET.get("official_account_id")
+    if official_account_id:
+        donation_drives = donation_drives.filter(official_account_id=official_account_id)
+    return render(request, "donation_drive/donation_drives.html", {"donation_drives":donation_drives, "official_account":official_account})
 
 @login_required
 def donation_drive_details(request, id):
