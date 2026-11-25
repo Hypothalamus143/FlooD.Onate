@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Affidavit of Liquidation Details{% endblock %}
+{% block content %}
+    <h1>Affidavit of Liquidation Details</h1>
+    <table>
+        <tr>
+            <td><b>Affidavit of Liquidation ID</b></td>
+            <td>{{ affidavit_of_liquidation.id }}</td>
+        </tr>
+        <tr>
+            <td><b>Amount</b></td>
+            <td>{{ affidavit_of_liquidation.amount }}</td>
+        </tr>
+        <tr>
+            <td><b>Transcript</b></td>
+            <td><textarea disabled>{{ affidavit_of_liquidation.transcript }}</textarea></td>
+        </tr>
+    </table>
+         <h2>Affidavit of Liquidation Image</h2>
+            {% if affidavit_of_liquidation.affidavit_of_liquidation_image %}
+                <img src="{{ affidavit_of_liquidation.affidavit_of_liquidation_image.url }}" width="150" height="150">
+            {% else %}
+                <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+            {% endif %}
+        {% if official_account == affidavit_of_liquidation.donation_drive.official_account %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{ form.as_div }}
+            <div>
+                <input type="submit" value="Save Changes">
+            </div>
+            </form>
+        {% endif %}
+{% endblock %}

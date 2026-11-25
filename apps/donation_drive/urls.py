@@ -12,4 +12,5 @@ urlpatterns = [
     path('create_affidavit_of_liquidation/<int:donation_drive_id>/', views.create_affidavit_of_liquidation, name='create_affidavit_of_liquidation'),
     path('receipt_details/<int:id>/', views.receipt_details, name='receipt_details'),
     path('event_photo_details/<int:id>/', views.event_photo_details, name='event_photo_details'),
+    path('affidavit_of_liquidation_details/<int:id>/', views.affidavit_of_liquidation_details, name='affidavit_of_liquidation_details'),
 ]

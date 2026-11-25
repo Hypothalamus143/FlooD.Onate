@@ -120,3 +120,18 @@ def event_photo_details(request, id):
     else:
         form = None
     return render(request, "donation_drive/event_photo_details.html", {"official_account":official_account, "event_photo":event_photo, "form":form})
+
+@login_required
+def affidavit_of_liquidation_details(request, id):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    affidavit_of_liquidation = AffidavitOfLiquidation.objects.get(id=id)
+    if request.method == "POST":
+        form = AffidavitOfLiquidationForm(request.POST, request.FILES, instance=affidavit_of_liquidation)
+        if form.is_valid():
+            form.save()
+            return redirect("donation_drive:affidavit_of_liquidation_details", id)
+    if official_account == affidavit_of_liquidation.donation_drive.official_account:
+        form = AffidavitOfLiquidationForm(instance=affidavit_of_liquidation)
+    else:
+        form = None
+    return render(request, "donation_drive/affidavit_of_liquidation_details.html", {"official_account":official_account, "affidavit_of_liquidation":affidavit_of_liquidation, "form":form})

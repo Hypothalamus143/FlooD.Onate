@@ -53,7 +53,7 @@
         <th>Amount</th>
         {% for a in affidavit_of_liquidation %}
             <tr>
-                <td>{{ a.id }}</td>
+                <td><a href="{% url 'donation_drive:affidavit_of_liquidation_details' a.id %}">{{ a.id }}</a></td>
                 <td> {{ a.amount }} </td>
             </tr>
         {% endfor %}
