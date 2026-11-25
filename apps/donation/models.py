@@ -19,4 +19,12 @@ class Donation(models.Model):
         null = True,
         upload_to="return_reference_images/"
     )
-    status = models.IntegerField(default=0)
+    
+    class Status(models.IntegerChoices):
+        PENDING = 0, "PENDING"
+        ACCEPTED = 1, "ACCEPTED"
+        REJECTED = 2, "REJECTED"
+    status = models.IntegerField(
+        choices=Status.choices,
+        default = Status.PENDING
+    )

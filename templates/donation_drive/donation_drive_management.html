@@ -40,12 +40,12 @@
         <th>Status</th>
         {% for d in donations %}
             <tr>
-                <td>{{d.id}}</td>
+                <td><a href="{% url 'donation:donation_management' donation_drive.id d.id %}">{{d.id}}</a></td>
                 <td>{{d.donation_reference_no}}</td>
                 <td>{{d.donated_amount}}</td>
                 <td>{{d.used_amount}}</td>
                 <td>{{d.returned_amount}}</td>
-                <td>{{d.status}}</td>
+                <td>{{d.get_status_display}}</td>
             </tr>       
         {% endfor %}
     </table>
