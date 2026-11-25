@@ -35,7 +35,8 @@ def donation_drive_management(request, id):
     donations = Donation.objects.filter(donation_drive=donation_drive)
     receipts = Receipt.objects.filter(donation_drive=donation_drive)
     event_photos = EventPhoto.objects.filter(donation_drive=donation_drive)
-    return render(request, "donation_drive/donation_drive_management.html", {"donation_drive":donation_drive, "official_account":official_account, "donations":donations, "receipts":receipts, "event_photos": event_photos})
+    affidavit_of_liquidation = AffidavitOfLiquidation.objects.filter(donation_drive=donation_drive)
+    return render(request, "donation_drive/donation_drive_management.html", {"donation_drive":donation_drive, "official_account":official_account, "donations":donations, "receipts":receipts, "event_photos": event_photos, "affidavit_of_liquidation":affidavit_of_liquidation})
 
 @login_required
 def create_donation_drive(request):
@@ -85,3 +86,20 @@ def create_event_photo(request, donation_drive_id):
             return redirect("donation_drive:donation_drive_management", donation_drive_id)
     form = EventPhotoForm()
     return render(request, "donation_drive/create_event_photo.html", {"form":form})
+
+@login_required
+def create_affidavit_of_liquidation(request, donation_drive_id):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    donation_drive = DonationDrive.objects.get(id=donation_drive_id, official_account=official_account)
+    if official_account is None:
+        return redirect("home:home")
+    if request.method == "POST":
+        form = AffidavitOfLiquidationForm(request.POST, request.FILES
+        )
+        if form.is_valid():
+            affidavit = form.save(commit=False)
+            affidavit.donation_drive = donation_drive
+            affidavit.save()
+            return redirect("donation_drive:donation_drive_management", donation_drive_id)
+    form = AffidavitOfLiquidationForm()
+    return render(request, "donation_drive/create_affidavit_of_liquidation.html", {"form":form})

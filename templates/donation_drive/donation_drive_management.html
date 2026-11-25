@@ -67,8 +67,20 @@
             </tr>
         {% endfor %}
     </table>
+    <h2>Affidavit of Liquidation</h2>
+    <table>
+        <th>ID</th>
+        <th>Amount</th>
+        {% for a in affidavit_of_liquidation %}
+            <tr>
+                <td>{{ a.id }}</td>
+                <td> {{ a.amount }} </td>
+            </tr>
+        {% endfor %}
+    </table>
     <ul>
         <li><a href="{% url 'donation_drive:create_receipt' donation_drive.id %}">Create Receipt</a></li>
         <li><a href="{% url 'donation_drive:create_event_photo' donation_drive.id %}">Create Event Photo</a></li>
+        <li><a href="{% url 'donation_drive:create_affidavit_of_liquidation' donation_drive.id %}">Create Affidavit of Liquidation</a></li>
     </ul>
 {% endblock %}

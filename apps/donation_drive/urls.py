@@ -10,5 +10,6 @@ urlpatterns = [
     path('<int:id>/', views.donation_drive_details, name='donation_drive_details'),
     path('manage/<int:id>/', views.donation_drive_management, name='donation_drive_management'),
     path('create_receipt/<int:donation_drive_id>/', views.create_receipt, name='create_receipt'),
-    path('create_event_photo/<int:donation_drive_id>/', views.create_event_photo, name='create_event_photo')
+    path('create_event_photo/<int:donation_drive_id>/', views.create_event_photo, name='create_event_photo'),
+    path('create_affidavit_of_liquidation/<int:donation_drive_id>/', views.create_affidavit_of_liquidation, name='create_affidavit_of_liquidation')
 ]
