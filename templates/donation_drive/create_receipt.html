@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Create Receipt{% endblock %}
+{% block content %}
+    <h1>Create Receipt</h1>
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_div }}
+        <div>
+            <input type="submit" value="Save Changes">
+        </div>
+    </form>
+{% endblock %}

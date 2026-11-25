@@ -27,5 +27,5 @@ class EventPhoto(models.Model):
 class AffidavitOfLiquidation(models.Model):
     donation_drive = models.ForeignKey(DonationDrive, on_delete=models.CASCADE)
     affidavit_of_liquidation_image = models.ImageField(upload_to="affidavit_of_liquidations/")
-    transcript = models.TextField()
+    transcript = models.TextField(null=True, blank=True)
     amount = models.DecimalField(max_digits=12, decimal_places=2)

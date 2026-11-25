@@ -49,4 +49,16 @@
             </tr>       
         {% endfor %}
     </table>
+    <h2>Receipts</h2>
+    <table>
+        <th>Receipt ID</th>
+        {% for r in receipts %}
+            <tr>
+                <td>{{ r.id }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <ul>
+        <li><a href="{% url 'donation_drive:create_receipt' donation_drive.id %}">Create Receipt</a></li>
+    </ul>
 {% endblock %}
