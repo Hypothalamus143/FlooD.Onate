@@ -50,10 +50,20 @@
     {% else %}
         <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
     {% endif %}
+    <h2>Reject</h2>
     <form method="POST">
         {% csrf_token %}
       
-        {{ form.as_div}}
+        {{ form_verification_request.as_div}}
+        <div>
+            <input type="submit" value="Save Changes">
+        </div>
+    </form>
+    <h2>Accept</h2>
+    <form method="POST">
+        {% csrf_token %}
+      
+        {{ form_official_account.as_div}}
         <div>
             <input type="submit" value="Save Changes">
         </div>

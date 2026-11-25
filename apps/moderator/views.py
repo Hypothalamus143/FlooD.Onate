@@ -3,6 +3,7 @@ from ..verification_request.models import VerificationRequest
 from ..accounts.models import ModeratorAccount, OfficialAccount
 from ..users.models import User
 from ..accounts.forms import OfficialAccountForm
+from ..verification_request.forms import VerificationRequestManagementForm
 from django.db.models import Subquery
 
 # Create your views here.
@@ -23,15 +24,21 @@ def verification_details(request, id):
     user = User.objects.get(id=id)
     verification_request = VerificationRequest.objects.get(user=user)
     if request.method == "POST":
-        form = OfficialAccountForm(request.POST)
-        if form.is_valid():
-            official_account = form.save(commit=False)
+        form_official_account = OfficialAccountForm(request.POST)
+        form_verification_request = VerificationRequestManagementForm(request.POST, instance=verification_request)
+        if form_official_account.is_valid():
+            official_account = form_official_account.save(commit=False)
             official_account.user = user
             official_account.save()
             verification_request.delete()
             return redirect("moderator:verification_requests")
-    form = OfficialAccountForm()
-    return render(request, "moderator/verification_details.html", {"verification_request":verification_request, "user":user, "form":form})
+        elif form_verification_request.is_valid():
+            form_verification_request.save()
+            return redirect("moderator:verification_requests")
+        print("Not Valid")
+    form_official_account = OfficialAccountForm()
+    form_verification_request = VerificationRequestManagementForm(instance=verification_request)
+    return render(request, "moderator/verification_details.html", {"verification_request":verification_request, "user":user, "form_official_account":form_official_account, "form_verification_request":form_verification_request})
 
 def moderators(request):
     if(not ModeratorAccount.objects.filter(user=request.user).first()):

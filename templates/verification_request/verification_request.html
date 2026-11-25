@@ -15,9 +15,7 @@
         {% if verification_request %}
             <div>
                 <label>Status: </label>
-                {% if verification_request.status == 0 %}
-                    <b>Pending</b>
-                {% endif %}
+                    <b>{{ verification_request.get_status_display }}</b>
             </div>
             <div>
                 <label>Message: </label>
