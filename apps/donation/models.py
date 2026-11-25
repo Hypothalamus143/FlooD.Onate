@@ -9,11 +9,11 @@ class Donation(models.Model):
     donated_amount = models.DecimalField(max_digits=12, decimal_places=2)
     used_amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     returned_amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    donation_reference_no = models.CharField(max_length=100, unique=True)
+    donation_reference_no = models.CharField(max_length=100)
     donation_reference_image = models.ImageField(
         upload_to="donation_reference_images/"
     )
-    return_reference_no = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    return_reference_no = models.CharField(max_length=100, blank=True, null=True)
     return_reference_image = models.ImageField(
         blank=True,
         null = True,
@@ -28,3 +28,4 @@ class Donation(models.Model):
         choices=Status.choices,
         default = Status.PENDING
     )
+    message = models.TextField(null=True, blank=True)

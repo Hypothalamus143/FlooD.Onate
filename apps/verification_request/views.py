@@ -13,6 +13,7 @@ def verification_request(request):
         if form.is_valid():
             verificationrequest = form.save(commit=False)
             verificationrequest.user = user
+            verification_request.status = 0
             verificationrequest.save()
             return redirect("verification_request:verification_request")
     else:

@@ -9,4 +9,4 @@ class DonationForm(forms.ModelForm):
 class DonationManagementForm(forms.ModelForm):
     class Meta:
         model = Donation
-        fields = ["status", "used_amount"]
+        fields = ["status", "used_amount", "message"]
