@@ -9,7 +9,7 @@ class DonationDrive(models.Model):
     official_account = models.ForeignKey(OfficialAccount, on_delete=models.CASCADE)
     baranggay = models.ForeignKey(Baranggay, on_delete=models.CASCADE)
     start_date = models.DateField()
-    duration = models.DecimalField(decimal_places=2, max_digits=10)
+    duration = models.IntegerField()
     target_amount = models.DecimalField(decimal_places=2, max_digits=12)
     gathered_amount = models.DecimalField(decimal_places=2, max_digits=12, default=0)
     status = models.IntegerField(default=Status.OPEN, choices=Status.choices)

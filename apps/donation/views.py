@@ -32,4 +32,4 @@ def donation_management(request, donation_drive_id, id):
         return redirect("donation_drive:donation_drive_management", donation_drive_id)
     else:
         form = DonationManagementForm(instance=donation)
-        return render(request, "donation/donation_management.html", {"form":form})
+        return render(request, "donation/donation_management.html", {"form":form, "donation":donation})

@@ -2,8 +2,24 @@
 {% load static %}
 {%block title%}Donation{% endblock %}
 {% block content %}
-    <h1>Manage Donations</h1>
-        <form method="POST" enctype="multipart/form-data">
+    <h1>Manage Donation</h1>
+    <table>
+        <tr>
+            <td><b>Donation Amount</b></td>
+            <td>{{ donation.donated_amount }}</td>
+        </tr>
+        <tr>
+            <td><b>Reference No.</b></td>
+            <td>{{ donation.donation_reference_no }}</td>
+        </tr>
+    </table>
+    <h2>Donation Reference Image</h2>
+     {% if donation.donation_reference_no %}
+        <img src="{{ donation.donation_reference_image.url }}" width="150" height="150">
+    {% else %}
+        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
         {{ form.as_div }}
