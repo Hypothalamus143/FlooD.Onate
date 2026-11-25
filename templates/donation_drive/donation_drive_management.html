@@ -58,7 +58,17 @@
             </tr>
         {% endfor %}
     </table>
+    <h2>Event Photo</h2>
+    <table>
+        <th>Event Photo ID</th>
+        {% for e in event_photos %}
+            <tr>
+                <td>{{ e.id }}</td>
+            </tr>
+        {% endfor %}
+    </table>
     <ul>
         <li><a href="{% url 'donation_drive:create_receipt' donation_drive.id %}">Create Receipt</a></li>
+        <li><a href="{% url 'donation_drive:create_event_photo' donation_drive.id %}">Create Event Photo</a></li>
     </ul>
 {% endblock %}

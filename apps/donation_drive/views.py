@@ -34,7 +34,8 @@ def donation_drive_management(request, id):
     donation_drive = DonationDrive.objects.get(id=id, official_account=official_account)
     donations = Donation.objects.filter(donation_drive=donation_drive)
     receipts = Receipt.objects.filter(donation_drive=donation_drive)
-    return render(request, "donation_drive/donation_drive_management.html", {"donation_drive":donation_drive, "official_account":official_account, "donations":donations, "receipts":receipts})
+    event_photos = EventPhoto.objects.filter(donation_drive=donation_drive)
+    return render(request, "donation_drive/donation_drive_management.html", {"donation_drive":donation_drive, "official_account":official_account, "donations":donations, "receipts":receipts, "event_photos": event_photos})
 
 @login_required
 def create_donation_drive(request):
@@ -64,7 +65,23 @@ def create_receipt(request, donation_drive_id):
             receipt = form.save(commit=False)
             receipt.donation_drive = donation_drive
             receipt.save()
-            print("valid")
             return redirect("donation_drive:donation_drive_management", donation_drive_id)
     form = ReceiptForm()
     return render(request, "donation_drive/create_receipt.html", {"form":form})
+
+@login_required
+def create_event_photo(request, donation_drive_id):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    donation_drive = DonationDrive.objects.get(id=donation_drive_id, official_account=official_account)
+    if official_account is None:
+        return redirect("home:home")
+    if request.method == "POST":
+        form = EventPhotoForm(request.POST, request.FILES
+        )
+        if form.is_valid():
+            event_photo = form.save(commit=False)
+            event_photo.donation_drive = donation_drive
+            event_photo.save()
+            return redirect("donation_drive:donation_drive_management", donation_drive_id)
+    form = EventPhotoForm()
+    return render(request, "donation_drive/create_event_photo.html", {"form":form})
