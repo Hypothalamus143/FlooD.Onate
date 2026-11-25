@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Receipt Detail{% endblock %}
+{% block content %}
+    <h1>Receipt Detail</h1>
+    <table>
+        <tr>
+            <td><b>Receipt ID</b></td>
+            <td>{{ receipt.id }}</td>
+        </tr>
+    </table>
+         <h2>Receipt Image</h2>
+            {% if receipt.receipt_image %}
+                <img src="{{ receipt.receipt_image.url }}" width="150" height="150">
+            {% else %}
+                <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+            {% endif %}
+        {% if official_account == receipt.donation_drive.official_account %}
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.as_div }}
+            <div>
+                <input type="submit" value="Save Changes">
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}

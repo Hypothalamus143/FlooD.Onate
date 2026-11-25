@@ -14,7 +14,7 @@
         </tr>
     </table>
     <h2>Donation Reference Image</h2>
-     {% if donation.donation_reference_no %}
+     {% if donation.donation_reference_image %}
         <img src="{{ donation.donation_reference_image.url }}" width="150" height="150">
     {% else %}
         <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">

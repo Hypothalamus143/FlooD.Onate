@@ -34,7 +34,7 @@
         <th>Receipt ID</th>
         {% for r in receipts %}
             <tr>
-                <td>{{ r.id }}</td>
+                <td><a href="{% url 'donation_drive:receipt_details' r.id %}">{{ r.id }}</a></td>
             </tr>
         {% endfor %}
     </table>

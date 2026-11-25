@@ -90,3 +90,19 @@ def create_affidavit_of_liquidation(request, donation_drive_id):
             return redirect("donation_drive:donation_drive_management", donation_drive_id)
     form = AffidavitOfLiquidationForm()
     return render(request, "donation_drive/create_affidavit_of_liquidation.html", {"form":form})
+
+@login_required
+def receipt_details(request, id):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    receipt = Receipt.objects.get(id=id)
+    if request.method == "POST":
+        form = ReceiptForm(request.POST, request.FILES
+        )
+        if form.is_valid():
+            receipt.save()
+            return redirect("donation_drive:receipt_details", id)
+    if official_account == receipt.donation_drive.official_account:
+        form = ReceiptForm(instance=receipt)
+    else:
+        form = None
+    return render(request, "donation_drive/receipt_details.html", {"official_account":official_account, "receipt":receipt, "form":form})
