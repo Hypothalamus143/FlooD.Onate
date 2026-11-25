@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{%block title%}Receipt Detail{% endblock %}
+{%block title%}Receipt Details{% endblock %}
 {% block content %}
-    <h1>Receipt Detail</h1>
+    <h1>Receipt Details</h1>
     <table>
         <tr>
             <td><b>Receipt ID</b></td>
@@ -17,9 +17,9 @@
             {% endif %}
         {% if official_account == receipt.donation_drive.official_account %}
             <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
+                {% csrf_token %}
 
-            {{ form.as_div }}
+                {{ form.as_div }}
             <div>
                 <input type="submit" value="Save Changes">
             </div>

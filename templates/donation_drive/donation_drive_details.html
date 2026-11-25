@@ -43,7 +43,7 @@
         <th>Event Photo ID</th>
         {% for e in event_photos %}
             <tr>
-                <td>{{ e.id }}</td>
+                <td><a href="{% url 'donation_drive:event_photo_details' e.id %}">{{ e.id }}</a></td>
             </tr>
         {% endfor %}
     </table>

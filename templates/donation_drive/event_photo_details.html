@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Event Photo Details{% endblock %}
+{% block content %}
+    <h1>Event Photo Details</h1>
+    <table>
+        <tr>
+            <td><b>Event Photo ID</b></td>
+            <td>{{ event_photo.id }}</td>
+        </tr>
+    </table>
+         <h2>Event Photo Image</h2>
+            {% if event_photo.event_photo_image %}
+                <img src="{{ event_photo.event_photo_image.url }}" width="150" height="150">
+            {% else %}
+                <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+            {% endif %}
+        {% if official_account == event_photo.donation_drive.official_account %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{ form.as_div }}
+            <div>
+                <input type="submit" value="Save Changes">
+            </div>
+            </form>
+        {% endif %}
+{% endblock %}

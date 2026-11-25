@@ -96,13 +96,27 @@ def receipt_details(request, id):
     official_account = OfficialAccount.objects.filter(user=request.user).first()
     receipt = Receipt.objects.get(id=id)
     if request.method == "POST":
-        form = ReceiptForm(request.POST, request.FILES
-        )
+        form = ReceiptForm(request.POST, request.FILES, instance=receipt)
         if form.is_valid():
-            receipt.save()
+            form.save()
             return redirect("donation_drive:receipt_details", id)
     if official_account == receipt.donation_drive.official_account:
         form = ReceiptForm(instance=receipt)
     else:
         form = None
     return render(request, "donation_drive/receipt_details.html", {"official_account":official_account, "receipt":receipt, "form":form})
+
+@login_required
+def event_photo_details(request, id):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    event_photo = EventPhoto.objects.get(id=id)
+    if request.method == "POST":
+        form = EventPhotoForm(request.POST, request.FILES, instance=event_photo)
+        if form.is_valid():
+            form.save()
+            return redirect("donation_drive:event_photo_details", id)
+    if official_account == event_photo.donation_drive.official_account:
+        form = EventPhotoForm(instance=event_photo)
+    else:
+        form = None
+    return render(request, "donation_drive/event_photo_details.html", {"official_account":official_account, "event_photo":event_photo, "form":form})
