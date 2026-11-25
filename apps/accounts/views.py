@@ -22,7 +22,6 @@ def official_account(request):
 
 @login_required
 def civilian_account(request):
-    user = request.user
-    civilian_account = CivilianAccount.objects.get(user=user)
-    donations = Donation.objects.select_related('donation_drive')
+    civilian_account = CivilianAccount.objects.get(user=request.user)
+    donations = Donation.objects.filter(civilian_account=civilian_account).select_related('donation_drive')
     return render(request, "accounts/civilian_account.html", { "civilian_account": civilian_account, "donations":donations})
