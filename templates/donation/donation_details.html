@@ -19,6 +19,7 @@
     {% else %}
         <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
     {% endif %}
+    {% if official_account == donation.donation_drive.official_account %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -27,4 +28,5 @@
             <input type="submit" value="Save Changes">
         </div>
     </form>
+    {% endif %}
 {% endblock %}
