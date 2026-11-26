@@ -28,6 +28,10 @@
             <td><b>Status</b></td>
             <td>{{ donation_drive.get_status_display }}</td>
         </tr>
+        <tr>
+            <td><b>Initiated By</b></td>
+            <td><a href="{% url 'accounts:official_account' donation_drive.official_account.id %}">{{ donation_drive.official_account.user.last_name }}, {{ donation_drive.official_account.user.first_name }}</td>
+        </tr>
     </table>
     <h2>Receipts</h2>
     <table>

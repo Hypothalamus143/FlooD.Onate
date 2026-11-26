@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {%block title%}Accounts{% endblock %}
 {% block content %}
     <h1>Accounts</h1>
@@ -7,7 +8,7 @@
             <li><a href="{% url 'accounts:civilian_account' %}">Civilian Account</a></li>
         {% endif %}
         {% if official_account %}
-            <li><a href="{% url 'accounts:official_account' %}">Official Account</a></li>
+            <li><a href="{% url 'accounts:official_account' official_account.id %}">Official Account</a></li>
         {% endif %}
         {% if moderator_account %}
             <li><a href="{% url 'moderator:moderator' %}">Moderator Account</a></li>
