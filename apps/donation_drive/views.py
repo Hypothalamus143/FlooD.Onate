@@ -4,6 +4,7 @@ from ..accounts.models import OfficialAccount, CivilianAccount
 from .models import DonationDrive, Receipt, EventPhoto, AffidavitOfLiquidation
 from .forms import DonationDriveForm, ReceiptForm, EventPhotoForm, AffidavitOfLiquidationForm
 from ..donation.models import Donation
+from django.db.models import Sum
 # Create your views here.
 @login_required
 def donation_drives(request):
@@ -22,8 +23,10 @@ def donation_drive_details(request, id):
     donations = Donation.objects.filter(donation_drive=donation_drive)
     receipts = Receipt.objects.filter(donation_drive=donation_drive)
     event_photos = EventPhoto.objects.filter(donation_drive=donation_drive)
-    affidavit_of_liquidation = AffidavitOfLiquidation.objects.filter(donation_drive=donation_drive)
-    return render(request, "donation_drive/donation_drive_details.html", {"donation_drive":donation_drive, "official_account":official_account, "civilian_account":civilian_accont, "donations":donations, "receipts":receipts, "event_photos": event_photos, "affidavit_of_liquidation":affidavit_of_liquidation})
+    affidavit_of_liquidations = AffidavitOfLiquidation.objects.filter(donation_drive=donation_drive)
+    gathered_amount = donations.filter(status=1).aggregate(gathered_amount=Sum("donated_amount"))
+    used_amount = affidavit_of_liquidations.aggregate(used_amount=Sum("amount"))
+    return render(request, "donation_drive/donation_drive_details.html", {"donation_drive":donation_drive, "official_account":official_account, "civilian_account":civilian_accont, "donations":donations, "receipts":receipts, "event_photos": event_photos, "affidavit_of_liquidations":affidavit_of_liquidations, "gathered_amount":gathered_amount, "used_amount":used_amount})
 
 @login_required
 def create_donation_drive(request):

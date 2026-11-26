@@ -29,7 +29,12 @@
             <td><b>Term End</b></td>
             <td>{{ official_account_query.expiry_date }}</td>
         </tr>
+        <tr>
+            <td><b>Bio</b></td>
+            <td>{{ profile.bio }}</td>
+        </tr>
     </table>
+    <h2>Platform Interactions</h2>
     <ul>
         <li><a href="{% url 'donation_drive:donation_drives' %}?official_account_id={{ official_account_query.id }}">Donation Drives</a></li>
         {% if official_account_user == official_account_query %}

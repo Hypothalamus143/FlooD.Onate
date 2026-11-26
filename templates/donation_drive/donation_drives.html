@@ -9,7 +9,6 @@
             <th>Start Date</th>
             <th>Duration</th>
             <th>Target Amount</th>
-            <th>Gathered Amount</th>
             <th>Status</th>
             {% for d in donation_drives %}
                 <tr>
@@ -18,7 +17,6 @@
                     <td>{{d.start_date}}</td>
                     <td>{{d.duration}} days</td>
                     <td>{{d.target_amount}}</td>
-                    <td>{{d.gathered_amount}}</td>
                     <td>{{d.get_status_display}}</td>
                 </tr>       
             {% endfor %}
