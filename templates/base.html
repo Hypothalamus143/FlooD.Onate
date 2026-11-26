@@ -37,14 +37,9 @@
         {% for message in messages %}
             <li{% if message.tags %}class="{{message.tags}}"{% endif %}>
                 {{ message }}
-                <button class="close-toast" onclick="this.parentElement.remove()">✕</button>
-            </li>
-            
+            </li> 
             {% endfor %}
     </ul>
     {% endif %}
-    <script src="{% static 'js/script.js' %}">
-
-    </script>
 </body>
 </html>
