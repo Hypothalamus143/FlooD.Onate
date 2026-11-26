@@ -4,6 +4,7 @@ from ..accounts.models import ModeratorAccount, OfficialAccount
 from ..users.models import User
 from ..accounts.forms import OfficialAccountForm
 from ..verification_request.forms import VerificationRequestManagementForm
+from ..profiles.models import Profile
 from django.db.models import Subquery
 
 # Create your views here.
@@ -22,6 +23,7 @@ def verification_details(request, id):
     if(not ModeratorAccount.objects.filter(user=request.user).first()):
         return redirect("home:home")
     user = User.objects.get(id=id)
+    profile = Profile.objects.get(id=id)
     verification_request = VerificationRequest.objects.get(user=user)
     if request.method == "POST":
         form_official_account = OfficialAccountForm(request.POST)
@@ -38,7 +40,7 @@ def verification_details(request, id):
         print("Not Valid")
     form_official_account = OfficialAccountForm()
     form_verification_request = VerificationRequestManagementForm(instance=verification_request)
-    return render(request, "moderator/verification_details.html", {"verification_request":verification_request, "user":user, "form_official_account":form_official_account, "form_verification_request":form_verification_request})
+    return render(request, "moderator/verification_details.html", {"verification_request":verification_request, "user":user, "form_official_account":form_official_account, "form_verification_request":form_verification_request, "profile":profile})
 
 def moderators(request):
     if(not ModeratorAccount.objects.filter(user=request.user).first()):

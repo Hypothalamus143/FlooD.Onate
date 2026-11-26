@@ -3,6 +3,11 @@
 {%block title%}Moderator{% endblock %}
 {% block content %}
     <h1>Verification Request Details</h1>
+    {% if profile.profile_image %}
+        <img src="{{ profile.profile_image.url }}" alt="{{ profile.user.username }}'s Avatar" width="150" height="150">
+    {% else %}
+        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+    {% endif %}
     <h2>User Details</h2>
     <table>
         <tr>
