@@ -52,17 +52,39 @@ h2, h3, h4 {
     margin-top: 2rem;
     margin-bottom: 0.8rem;
     letter-spacing: -0.01em;
+    line-height: 1.3;
 }
 
-h2 { font-size: 1.6rem; }
-h3 { font-size: 1.3rem; }
+h2 { 
+    font-size: 1.6rem; 
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.4rem;
+}
+
+h3 { 
+    font-size: 1.3rem; 
+    color: #0033a0;
+}
+
 h4 { font-size: 1.1rem; }
 
-/* ---------- PARAGRAPHS ---------- */
+/* ---------- TEXT / BOLD TAGS ---------- */
 p {
     margin-bottom: 1.2rem;
     color: #1e293b;
     font-size: 1.05rem;
+}
+
+strong, b {
+    font-weight: 600;
+    color: #0a1a3a;
+}
+
+mark {
+    background: #fef08a;
+    color: #0a1a3a;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
 }
 
 /* ---------- ANCHOR TAGS (links) ---------- */
@@ -166,12 +188,26 @@ form::before {
 }
 
 form p {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.8rem;
 }
 
-/* ---------- FORM FIELDS ---------- */
-input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
-select,
+/* ============================================================
+   DJANGO FORM FIELDS (ALL TYPES)
+   ============================================================ */
+
+/* --- Shared styling for Text, Number, Email, Password, Date, etc. --- */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="tel"],
+input[type="search"],
+input[type="month"],
+input[type="week"],
 textarea {
     width: 100%;
     padding: 0.75rem 1rem;
@@ -182,26 +218,143 @@ textarea {
     background: #ffffff;
     transition: border-color 0.2s, box-shadow 0.2s;
     color: #0f172a;
-    margin: 0.3rem 0 0.8rem 0;
+    margin: 0.3rem 0 1rem 0;
     display: block;
 }
 
-input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):focus,
-select:focus,
-textarea:focus {
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="datetime-local"]:focus,
+input[type="tel"]:focus,
+input[type="search"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+textarea:focus,
+select:focus {
     border-color: #0033a0;
     box-shadow: 0 0 0 4px rgba(0, 51, 160, 0.12);
     outline: none;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
-    margin-right: 0.5rem;
-    accent-color: #0033a0;
-    transform: scale(1.1);
-    vertical-align: middle;
+/* --- Number Input (Spin Buttons styling) --- */
+input[type="number"] {
+    appearance: textfield; /* Removes default arrows in Firefox */
+    -moz-appearance: textfield;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+    background: #f1f5f9;
+    border-left: 1.5px solid #dce3ef;
+    opacity: 0.8;
+    cursor: pointer;
+    height: 100%;
+    margin: 0;
+    padding: 0 8px;
+    transition: background 0.2s;
+    border-radius: 0 10px 10px 0;
+}
+
+input[type="number"]:hover::-webkit-inner-spin-button {
+    opacity: 1;
+    background: #e2e8f0;
+}
+
+/* --- Select Dropdowns (IntegerChoices, ForeignKeys, etc.) --- */
+select {
+    width: 100%;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1.5px solid #dce3ef;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #0f172a;
+    margin: 0.3rem 0 1rem 0;
+    display: block;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Custom SVG Chevron */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230033a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select:hover {
+    border-color: #b0c4de;
+}
+
+select:focus {
+    border-color: #0033a0;
+}
+
+/* Multi-select (MultipleChoiceField) */
+select[multiple] {
+    padding: 0.5rem;
+    background-image: none; /* Remove custom arrow for lists */
+    min-height: 120px;
+}
+
+select[multiple] option {
+    padding: 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+select[multiple] option:checked {
+    background: #0033a0 linear-gradient(0deg, #0033a0 0%, #0033a0 100%);
+    color: white;
+}
+
+/* --- Checkboxes & Radio Buttons --- */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-right: 0.6rem;
+    accent-color: #0033a0; /* Modern native styling */
+    cursor: pointer;
+    vertical-align: middle;
+    transition: transform 0.15s ease;
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+    transform: scale(1.1);
+}
+
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+    outline: 2px solid #0033a0;
+    outline-offset: 2px;
+}
+
+/* Checkbox/Radio Django layout fix (usually wrapped in a div) */
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.form-check label {
+    margin-bottom: 0;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Labels */
 label {
     font-weight: 600;
     color: #0a1a3a;
@@ -210,21 +363,102 @@ label {
     font-size: 0.95rem;
 }
 
+/* ============================================================
+   DJANGO IMAGE / FILE FIELD
+   ============================================================ */
+
+input[type="file"] {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #475569;
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    margin: 0.4rem 0 1rem 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: block;
+}
+
+input[type="file"]:hover {
+    background: #eff6ff;
+    border-color: #0033a0;
+}
+
+input[type="file"]:focus {
+    outline: none;
+    border-color: #0033a0;
+    box-shadow: 0 0 0 4px rgba(0, 51, 160, 0.12);
+    background: #ffffff;
+}
+
+/* The "Browse..." button */
+input[type="file"]::file-selector-button {
+    padding: 0.6rem 1.2rem;
+    margin-right: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #0033a0;
+    color: white;
+    font-weight: 600;
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 6px rgba(0, 51, 160, 0.2);
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: #00227a;
+    transform: translateY(-1px);
+}
+
+input[type="file"]::file-selector-button:active {
+    transform: translateY(1px);
+}
+
+/* Django ClearableFileInput specific layout fixes */
+input[type="file"] + a,
+input[type="file"] + br + a {
+    display: inline-block;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #dc2626;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+input[type="file"] + a:hover,
+input[type="file"] + br + a:hover {
+    text-decoration: underline;
+    border-bottom: none;
+}
+
+/* If Django renders "Clear" checkbox next to the file input */
+input[type="checkbox"][name$="-clear"] {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 /* ---------- HELPTEXT ---------- */
 .helptext,
 ul.helptext {
     display: block;
     font-size: 0.85rem;
     color: #475569;
-    margin-top: -0.1rem;
-    margin-bottom: 0.9rem;
+    margin-top: -0.2rem;
+    margin-bottom: 1rem;
     padding: 0.35rem 0.9rem;
     font-style: normal;
     background: #eef2f8;
-    border-radius: 40px;
+    border-radius: 8px;
     width: fit-content;
     max-width: 100%;
     border-left: 3px solid #0033a0;
+    line-height: 1.4;
 }
 
 ul.helptext {
@@ -265,7 +499,6 @@ ul.helptext li {
    UNORDERED LISTS (GENERAL CONTENT)
    ============================================================ */
 
-/* Modern styled UL (outside forms) */
 ul:not(.helptext):not(.errorlist):not(.navbar-links):not(.messages) {
     list-style: none;
     padding-left: 0;
@@ -358,14 +591,8 @@ ul.messages li {
 }
 
 @keyframes msgSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 ul.messages li::before {
@@ -374,57 +601,22 @@ ul.messages li::before {
     line-height: 1.4;
 }
 
-/* Default / info */
-ul.messages li {
-    background: #eff6ff;
-    color: #1e3a8a;
-    border-color: #bfdbfe;
-}
-ul.messages li::before {
-    content: 'ℹ️';
-}
+ul.messages li { background: #eff6ff; color: #1e3a8a; border-color: #bfdbfe; }
+ul.messages li::before { content: 'ℹ️'; }
 
-/* Success */
-ul.messages li.success {
-    background: #ecfdf5;
-    color: #065f46;
-    border-color: #a7f3d0;
-}
-ul.messages li.success::before {
-    content: '✅';
-}
+ul.messages li.success { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+ul.messages li.success::before { content: '✅'; }
 
-/* Warning */
-ul.messages li.warning {
-    background: #fffbeb;
-    color: #92400e;
-    border-color: #fde68a;
-}
-ul.messages li.warning::before {
-    content: '⚠️';
-}
+ul.messages li.warning { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+ul.messages li.warning::before { content: '⚠️'; }
 
-/* Error / Danger */
 ul.messages li.error,
-ul.messages li.danger {
-    background: #fef2f2;
-    color: #991b1b;
-    border-color: #fecaca;
-}
+ul.messages li.danger { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
 ul.messages li.error::before,
-ul.messages li.danger::before {
-    content: '❌';
-}
+ul.messages li.danger::before { content: '❌'; }
 
-/* Debug */
-ul.messages li.debug {
-    background: #f8fafc;
-    color: #334155;
-    border-color: #e2e8f0;
-}
-ul.messages li.debug::before {
-    content: '🐞';
-}
+ul.messages li.debug { background: #f8fafc; color: #334155; border-color: #e2e8f0; }
+ul.messages li.debug::before { content: '🐞'; }
 
 /* ============================================================
    TABLES (MODERN)
@@ -459,21 +651,10 @@ thead th {
     white-space: nowrap;
 }
 
-tbody tr {
-    transition: background 0.15s ease;
-}
-
-tbody tr:nth-child(even) {
-    background: #f8faff;
-}
-
-tbody tr:nth-child(odd) {
-    background: #ffffff;
-}
-
-tbody tr:hover {
-    background: #eef4ff;
-}
+tbody tr { transition: background 0.15s ease; }
+tbody tr:nth-child(even) { background: #f8faff; }
+tbody tr:nth-child(odd) { background: #ffffff; }
+tbody tr:hover { background: #eef4ff; }
 
 tbody td {
     padding: 0.9rem 1.2rem;
@@ -483,14 +664,9 @@ tbody td {
     line-height: 1.5;
 }
 
-tbody tr:last-child td {
-    border-bottom: none;
-}
+tbody tr:last-child td { border-bottom: none; }
 
-tfoot {
-    background: #f1f5f9;
-}
-
+tfoot { background: #f1f5f9; }
 tfoot td {
     padding: 0.9rem 1.2rem;
     font-weight: 600;
@@ -498,7 +674,6 @@ tfoot td {
     border-top: 2px solid #e2e8f0;
 }
 
-/* Responsive table wrapper */
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -506,12 +681,8 @@ tfoot td {
     margin: 1.8rem 0;
 }
 
-.table-responsive table {
-    margin: 0;
-    min-width: 600px;
-}
+.table-responsive table { margin: 0; min-width: 600px; }
 
-/* Table caption */
 caption {
     caption-side: top;
     text-align: left;
@@ -522,7 +693,7 @@ caption {
 }
 
 /* ============================================================
-   IMAGES (GENERAL + DJANGO IMAGE FIELDS)
+   GENERAL IMAGES & PREVIEWS
    ============================================================ */
 
 img {
@@ -541,7 +712,6 @@ img:hover {
     box-shadow: 0 10px 30px rgba(0, 20, 60, 0.14);
 }
 
-/* Avatar / profile picture */
 .avatar,
 .profile-pic,
 img.rounded-circle {
@@ -560,64 +730,28 @@ img.rounded-circle:hover {
     box-shadow: 0 8px 24px rgba(0, 20, 60, 0.18);
 }
 
-/* Django ClearableFileInput / image field preview */
-input[type="file"] {
-    width: 100%;
-    padding: 0.6rem;
-    font-size: 0.95rem;
-    font-family: inherit;
-    border: 1.5px dashed #cbd5e1;
-    border-radius: 12px;
-    background: #f8fafc;
-    color: #475569;
-    margin: 0.3rem 0 0.8rem 0;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-}
-
-input[type="file"]:hover {
-    border-color: #0033a0;
-    background: #eff6ff;
-}
-
-input[type="file"]:focus {
-    outline: none;
-    border-color: #0033a0;
-    box-shadow: 0 0 0 4px rgba(0, 51, 160, 0.12);
-}
-
-/* Image field preview container */
 .image-preview,
 .image-field-preview {
     display: inline-block;
-    margin: 0.4rem 0 0.8rem;
+    margin: 0.6rem 0 1rem;
     border-radius: 12px;
     overflow: hidden;
     border: 2px solid #e8edf5;
     background: #f8fafc;
     max-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 20, 60, 0.05);
 }
 
 .image-preview img,
 .image-field-preview img {
     border-radius: 0;
     box-shadow: none;
+    display: block;
+    margin: 0;
 }
 
-.image-preview img:hover,
-.image-field-preview img:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-/* Figure / image caption */
-figure {
-    margin: 1.5rem 0;
-}
-
-figure img {
-    margin-bottom: 0.5rem;
-}
+figure { margin: 1.5rem 0; }
+figure img { margin-bottom: 0.5rem; }
 
 figcaption {
     font-size: 0.88rem;
@@ -630,15 +764,8 @@ figcaption {
    UTILITY
    ============================================================ */
 
-.container {
-    max-width: 860px;
-    margin: 0 auto;
-}
-
-.text-center {
-    text-align: center;
-}
-
+.container { max-width: 860px; margin: 0 auto; }
+.text-center { text-align: center; }
 .mt-2 { margin-top: 1.5rem; }
 .mb-2 { margin-bottom: 1.5rem; }
 
@@ -657,17 +784,9 @@ small,
     color: #475569;
 }
 
-/* Extra form list polish */
-form ul {
-    list-style: none;
-    padding-left: 0;
-}
+form ul { list-style: none; padding-left: 0; }
+form li { margin-bottom: 0.8rem; }
 
-form li {
-    margin-bottom: 0.8rem;
-}
-
-/* Horizontal rule */
 hr {
     border: none;
     height: 2px;
@@ -677,7 +796,6 @@ hr {
     opacity: 0.3;
 }
 
-/* Blockquote — gov style */
 blockquote {
     border-left: 5px solid #0033a0;
     background: #f4f7fb;
@@ -726,7 +844,6 @@ blockquote::before {
     gap: 1.5rem !important;
 }
 
-/* ---------- BRAND ---------- */
 .navbar-brand {
     font-size: 1.3rem !important;
     font-weight: 700 !important;
@@ -745,7 +862,6 @@ blockquote::before {
     border-bottom: none !important;
 }
 
-/* ---------- LINKS LIST ---------- */
 .navbar-links {
     list-style: none !important;
     margin: 0 !important;
@@ -763,7 +879,6 @@ blockquote::before {
     align-items: center !important;
 }
 
-/* ---------- LINK STYLES ---------- */
 .navbar-links a {
     display: inline-block !important;
     padding: 0.5rem 0.9rem !important;
@@ -788,7 +903,6 @@ blockquote::before {
     outline-offset: 2px !important;
 }
 
-/* ---------- USERNAME (profile link) ---------- */
 .navbar-links .navbar-user {
     color: #0033a0 !important;
     font-weight: 600 !important;
@@ -800,7 +914,6 @@ blockquote::before {
     color: #00227a !important;
 }
 
-/* ---------- LOGOUT BUTTON ---------- */
 .navbar-links form {
     display: inline !important;
     background: none !important;
@@ -844,7 +957,6 @@ blockquote::before {
     outline-offset: 2px !important;
 }
 
-/* ---------- LOGIN / SIGN UP (call to action) ---------- */
 .navbar-links a[href*="register"] {
     background: #0033a0 !important;
     color: white !important;
@@ -860,99 +972,41 @@ blockquote::before {
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 600px) {
-    body {
-        padding: 1.2rem 0.8rem;
-        font-size: 15px;
-    }
-
-    h1 {
-        font-size: 1.9rem;
-    }
-
+    body { padding: 1.2rem 0.8rem; font-size: 15px; }
+    h1 { font-size: 1.9rem; }
+    
     .navbar {
         margin: -1.2rem -0.8rem 1.5rem -0.8rem !important;
         padding: 0 0.8rem !important;
     }
-
-    .navbar-container {
-        height: 56px !important;
-        gap: 0.5rem !important;
-    }
-
-    .navbar-brand {
-        font-size: 1.05rem !important;
-    }
-
-    .navbar-links {
-        gap: 0.15rem !important;
-    }
-
+    .navbar-container { height: 56px !important; gap: 0.5rem !important; }
+    .navbar-brand { font-size: 1.05rem !important; }
+    .navbar-links { gap: 0.15rem !important; }
     .navbar-links a,
-    .navbar-logout {
-        padding: 0.4rem 0.55rem !important;
-        font-size: 0.8rem !important;
-    }
-
-    form {
-        padding: 1.5rem 1.2rem;
-        border-radius: 16px;
-    }
-
-    table {
-        font-size: 0.9rem;
-    }
-
+    .navbar-logout { padding: 0.4rem 0.55rem !important; font-size: 0.8rem !important; }
+    
+    form { padding: 1.5rem 1.2rem; border-radius: 16px; }
+    
+    table { font-size: 0.9rem; }
     thead th,
     tbody td,
-    tfoot td {
-        padding: 0.7rem 0.8rem;
-    }
-
-    ul.messages li {
-        padding: 0.8rem 1rem;
-        font-size: 0.92rem;
-    }
+    tfoot td { padding: 0.7rem 0.8rem; }
+    
+    ul.messages li { padding: 0.8rem 1rem; font-size: 0.92rem; }
 }
 
-/* ---------- VERY SMALL SCREENS ---------- */
 @media (max-width: 420px) {
     .navbar-links a,
-    .navbar-logout {
-        padding: 0.35rem 0.45rem !important;
-        font-size: 0.75rem !important;
-    }
-
-    h1 {
-        font-size: 1.6rem;
-    }
-
-    body {
-        padding: 1rem 0.6rem;
-    }
+    .navbar-logout { padding: 0.35rem 0.45rem !important; font-size: 0.75rem !important; }
+    h1 { font-size: 1.6rem; }
+    body { padding: 1rem 0.6rem; }
 }
 
 /* ---------- PRINT ---------- */
 @media print {
-    .navbar {
-        display: none !important;
-    }
-
-    body {
-        background: white;
-        padding: 0;
-    }
-
-    form {
-        box-shadow: none;
-        border: 1px solid #ccc;
-    }
-
-    table {
-        box-shadow: none;
-        border: 1px solid #ccc;
-    }
-
-    img {
-        box-shadow: none;
-    }
+    .navbar { display: none !important; }
+    body { background: white; padding: 0; }
+    form { box-shadow: none; border: 1px solid #ccc; }
+    table { box-shadow: none; border: 1px solid #ccc; }
+    img { box-shadow: none; }
 }
