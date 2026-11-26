@@ -20,6 +20,7 @@ class CityMunicipality(models.Model):
 class Baranggay(models.Model):
     city_municipality = models.ForeignKey(CityMunicipality, on_delete=models.CASCADE)
     baranggay_name = models.CharField(max_length=50)
-
+    latitude = models.DecimalField(decimal_places=8, max_digits=12)
+    longitude = models.DecimalField(decimal_places=8, max_digits=12)
     def __str__(self):
         return self.baranggay_name

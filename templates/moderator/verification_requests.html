@@ -4,13 +4,13 @@
 {% block content %}
     <h1>Verification Requests</h1>
         <table>
-            <th>User ID</th>
+            <th>Verification Request ID</th>
             <th>Last Name</th>
             <th>First Name</th>
             <th>Status</th>
             {% for v in verification_requests %}
                 <tr>
-                    <td><a href="{% url 'moderator:verification_details' v.user.id %}">{{v.user.id}}</a></td>
+                    <td><a href="{% url 'moderator:verification_details' v.id %}">{{v.id}}</a></td>
                     <td>{{v.user.last_name}}</td>
                     <td>{{v.user.first_name}}</td>
                     <td>{{v.get_status_display}}</td>

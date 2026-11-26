@@ -5,6 +5,9 @@ from .models import DonationDrive, Receipt, EventPhoto, AffidavitOfLiquidation
 from .forms import DonationDriveForm, ReceiptForm, EventPhotoForm, AffidavitOfLiquidationForm
 from ..donation.models import Donation
 from django.db.models import Sum
+from django.urls import reverse
+from urllib.parse import urlencode
+
 # Create your views here.
 @login_required
 def donation_drives(request):
@@ -39,7 +42,9 @@ def create_donation_drive(request):
             donation_drive = form.save(commit=False)
             donation_drive.official_account = official_account
             donation_drive.save()
-            return redirect("donation_drive:official_account_donation_drives")
+            query = urlencode({"official_account_id":official_account.id})
+            url = f"{reverse('donation_drive:donation_drives')}?{query}"
+            return redirect(url)
     form = DonationDriveForm()
     return render(request, "donation_drive/create_donation_drive.html", {"form":form})
 

@@ -22,9 +22,9 @@ def verification_requests(request):
 def verification_details(request, id):
     if(not ModeratorAccount.objects.filter(user=request.user).first()):
         return redirect("home:home")
-    user = User.objects.get(id=id)
-    profile = Profile.objects.get(id=id)
-    verification_request = VerificationRequest.objects.get(user=user)
+    verification_request = VerificationRequest.objects.get(id=id)
+    user = verification_request.user
+    profile = Profile.objects.get(user=user)
     if request.method == "POST":
         form_official_account = OfficialAccountForm(request.POST)
         form_verification_request = VerificationRequestManagementForm(request.POST, instance=verification_request)
