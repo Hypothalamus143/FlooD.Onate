@@ -243,7 +243,7 @@ select:focus {
 
 /* --- Number Input (Spin Buttons styling) --- */
 input[type="number"] {
-    appearance: textfield; /* Removes default arrows in Firefox */
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 
@@ -283,7 +283,6 @@ select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    /* Custom SVG Chevron */
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230033a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 1rem center;
@@ -299,10 +298,9 @@ select:focus {
     border-color: #0033a0;
 }
 
-/* Multi-select (MultipleChoiceField) */
 select[multiple] {
     padding: 0.5rem;
-    background-image: none; /* Remove custom arrow for lists */
+    background-image: none;
     min-height: 120px;
 }
 
@@ -324,7 +322,7 @@ input[type="radio"] {
     width: 1.15rem;
     height: 1.15rem;
     margin-right: 0.6rem;
-    accent-color: #0033a0; /* Modern native styling */
+    accent-color: #0033a0;
     cursor: pointer;
     vertical-align: middle;
     transition: transform 0.15s ease;
@@ -341,7 +339,6 @@ input[type="radio"]:focus-visible {
     outline-offset: 2px;
 }
 
-/* Checkbox/Radio Django layout fix (usually wrapped in a div) */
 .form-check {
     display: flex;
     align-items: center;
@@ -354,7 +351,6 @@ input[type="radio"]:focus-visible {
     cursor: pointer;
 }
 
-/* Labels */
 label {
     font-weight: 600;
     color: #0a1a3a;
@@ -394,7 +390,6 @@ input[type="file"]:focus {
     background: #ffffff;
 }
 
-/* The "Browse..." button */
 input[type="file"]::file-selector-button {
     padding: 0.6rem 1.2rem;
     margin-right: 1rem;
@@ -419,7 +414,6 @@ input[type="file"]::file-selector-button:active {
     transform: translateY(1px);
 }
 
-/* Django ClearableFileInput specific layout fixes */
 input[type="file"] + a,
 input[type="file"] + br + a {
     display: inline-block;
@@ -437,7 +431,6 @@ input[type="file"] + br + a:hover {
     border-bottom: none;
 }
 
-/* If Django renders "Clear" checkbox next to the file input */
 input[type="checkbox"][name$="-clear"] {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -543,7 +536,6 @@ ul:not(.helptext):not(.errorlist):not(.navbar-links):not(.messages) li:hover::be
     transform: scale(1.2);
 }
 
-/* Ordered lists */
 ol {
     padding-left: 1.6rem;
     margin-bottom: 1.4rem;
@@ -817,21 +809,34 @@ blockquote::before {
 }
 
 /* ============================================================
-   NAVBAR
+   SLEEK MODERN NAVBAR
    ============================================================ */
 
 .navbar {
     position: sticky !important;
     top: 0 !important;
     z-index: 1000 !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    border-bottom: 1px solid #e8edf5 !important;
-    box-shadow: 0 2px 16px rgba(0, 20, 60, 0.05) !important;
-    margin: -2rem -1.5rem 2rem -1.5rem !important;
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: saturate(180%) blur(20px) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+    border-bottom: 1px solid rgba(0, 51, 160, 0.08) !important;
+    box-shadow: 0 4px 24px rgba(0, 20, 60, 0.04) !important;
+    margin: -2rem -1.5rem 2.5rem -1.5rem !important;
     padding: 0 1.5rem !important;
-    border-top: 4px solid #0033a0 !important;
+    transition: all 0.3s ease;
+}
+
+/* Subtle gradient accent line at the bottom of the navbar */
+.navbar::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #0033a0 20%, #f7c300 50%, #0033a0 80%, transparent 100%);
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 .navbar-container {
@@ -840,21 +845,22 @@ blockquote::before {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    height: 64px !important;
+    height: 68px !important;
     gap: 1.5rem !important;
 }
 
+/* ---------- BRAND ---------- */
 .navbar-brand {
-    font-size: 1.3rem !important;
-    font-weight: 700 !important;
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
     color: #0a1a3a !important;
-    letter-spacing: -0.02em !important;
+    letter-spacing: -0.03em !important;
     text-decoration: none !important;
     border-bottom: none !important;
-    transition: color 0.15s ease !important;
+    transition: color 0.2s ease !important;
     display: flex !important;
     align-items: center !important;
-    gap: 0.5rem !important;
+    gap: 0.6rem !important;
 }
 
 .navbar-brand:hover {
@@ -862,13 +868,14 @@ blockquote::before {
     border-bottom: none !important;
 }
 
+/* ---------- LINKS LIST ---------- */
 .navbar-links {
     list-style: none !important;
     margin: 0 !important;
     padding: 0 !important;
     display: flex !important;
     align-items: center !important;
-    gap: 0.4rem !important;
+    gap: 0.5rem !important;
 }
 
 .navbar-links li {
@@ -879,16 +886,17 @@ blockquote::before {
     align-items: center !important;
 }
 
+/* ---------- LINK STYLES ---------- */
 .navbar-links a {
     display: inline-block !important;
-    padding: 0.5rem 0.9rem !important;
-    font-size: 0.92rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.95rem !important;
     font-weight: 500 !important;
-    color: #334155 !important;
+    color: #475569 !important;
     text-decoration: none !important;
     border-radius: 10px !important;
     border-bottom: none !important;
-    transition: background 0.15s ease, color 0.15s ease !important;
+    transition: all 0.2s ease !important;
     white-space: nowrap !important;
 }
 
@@ -896,6 +904,7 @@ blockquote::before {
     background: #f1f5f9 !important;
     color: #0a1a3a !important;
     border-bottom: none !important;
+    transform: translateY(-1px);
 }
 
 .navbar-links a:focus-visible {
@@ -903,6 +912,7 @@ blockquote::before {
     outline-offset: 2px !important;
 }
 
+/* ---------- USERNAME (profile link) ---------- */
 .navbar-links .navbar-user {
     color: #0033a0 !important;
     font-weight: 600 !important;
@@ -914,6 +924,7 @@ blockquote::before {
     color: #00227a !important;
 }
 
+/* ---------- LOGOUT BUTTON ---------- */
 .navbar-links form {
     display: inline !important;
     background: none !important;
@@ -930,16 +941,16 @@ blockquote::before {
 
 .navbar-logout {
     display: inline-block !important;
-    padding: 0.5rem 0.9rem !important;
-    font-size: 0.92rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.95rem !important;
     font-weight: 500 !important;
     font-family: inherit !important;
-    color: #dc2626 !important;
+    color: #64748b !important;
     background: transparent !important;
     border: none !important;
     border-radius: 10px !important;
     cursor: pointer !important;
-    transition: background 0.15s ease, color 0.15s ease !important;
+    transition: all 0.2s ease !important;
     box-shadow: none !important;
     letter-spacing: normal !important;
     white-space: nowrap !important;
@@ -947,8 +958,8 @@ blockquote::before {
 
 .navbar-logout:hover {
     background: #fef2f2 !important;
-    color: #b91c1c !important;
-    transform: none !important;
+    color: #dc2626 !important;
+    transform: translateY(-1px) !important;
     box-shadow: none !important;
 }
 
@@ -957,17 +968,21 @@ blockquote::before {
     outline-offset: 2px !important;
 }
 
+/* ---------- LOGIN / SIGN UP (call to action) ---------- */
 .navbar-links a[href*="register"] {
-    background: #0033a0 !important;
+    background: linear-gradient(135deg, #0033a0, #00227a) !important;
     color: white !important;
     font-weight: 600 !important;
-    box-shadow: 0 2px 8px rgba(0, 51, 160, 0.2) !important;
+    padding: 0.5rem 1.2rem !important;
+    box-shadow: 0 4px 12px rgba(0, 51, 160, 0.2) !important;
+    border-radius: 50px !important;
 }
 
 .navbar-links a[href*="register"]:hover {
-    background: #00227a !important;
+    background: linear-gradient(135deg, #00227a, #001a5c) !important;
     color: white !important;
-    box-shadow: 0 4px 14px rgba(0, 51, 160, 0.3) !important;
+    box-shadow: 0 6px 16px rgba(0, 51, 160, 0.3) !important;
+    transform: translateY(-2px) !important;
 }
 
 /* ---------- RESPONSIVE ---------- */
@@ -976,28 +991,28 @@ blockquote::before {
     h1 { font-size: 1.9rem; }
     
     .navbar {
-        margin: -1.2rem -0.8rem 1.5rem -0.8rem !important;
+        margin: -1.2rem -0.8rem 2rem -0.8rem !important;
         padding: 0 0.8rem !important;
     }
-    .navbar-container { height: 56px !important; gap: 0.5rem !important; }
-    .navbar-brand { font-size: 1.05rem !important; }
-    .navbar-links { gap: 0.15rem !important; }
+    .navbar-container { height: 60px !important; gap: 0.5rem !important; }
+    .navbar-brand { font-size: 1.15rem !important; }
+    .navbar-links { gap: 0.2rem !important; }
     .navbar-links a,
-    .navbar-logout { padding: 0.4rem 0.55rem !important; font-size: 0.8rem !important; }
+    .navbar-logout { padding: 0.4rem 0.6rem !important; font-size: 0.85rem !important; }
+    .navbar-links a[href*="register"] { padding: 0.4rem 0.8rem !important; }
     
     form { padding: 1.5rem 1.2rem; border-radius: 16px; }
-    
     table { font-size: 0.9rem; }
     thead th,
     tbody td,
     tfoot td { padding: 0.7rem 0.8rem; }
-    
     ul.messages li { padding: 0.8rem 1rem; font-size: 0.92rem; }
 }
 
 @media (max-width: 420px) {
     .navbar-links a,
-    .navbar-logout { padding: 0.35rem 0.45rem !important; font-size: 0.75rem !important; }
+    .navbar-logout { padding: 0.35rem 0.5rem !important; font-size: 0.8rem !important; }
+    .navbar-links a[href*="register"] { padding: 0.35rem 0.7rem !important; }
     h1 { font-size: 1.6rem; }
     body { padding: 1rem 0.6rem; }
 }
