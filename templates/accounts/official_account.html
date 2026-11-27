@@ -34,6 +34,12 @@
             <td>{{ profile.bio }}</td>
         </tr>
     </table>
+    <h2>Incumbency Certificate</h2>
+    {% if verification_request.incumbency_cert %}
+        <img src="{{ verification_request.incumbency_cert.url }}" width="150" height="150">
+    {% else %}
+        <img src="{% static 'images/default-avatar.jpg' %}" alt="Default Avatar" width="150" height="150">
+    {% endif %}
     <h2>Platform Interactions</h2>
     <ul>
         <li><a href="{% url 'donation_drive:donation_drives' %}?official_account_id={{ official_account_query.id }}">Donation Drives</a></li>

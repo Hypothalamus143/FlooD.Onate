@@ -6,6 +6,7 @@ class VerificationRequest(models.Model):
         PENDING = 0, "PENDING"
         FOR_REVISION = 1, "FOR_REVISION"
         REJECTED = 2, "REJECTED"
+        ACCEPTED = 3, "ACCEPTED"
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     last_update_date = models.DateField(auto_now_add=True)
     status = models.IntegerField(

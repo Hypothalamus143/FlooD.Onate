@@ -32,7 +32,7 @@ def verification_details(request, id):
             official_account = form_official_account.save(commit=False)
             official_account.user = user
             official_account.save()
-            verification_request.delete()
+            verification_request.status=3
             return redirect("moderator:verification_requests")
         elif form_verification_request.is_valid():
             form_verification_request.save()

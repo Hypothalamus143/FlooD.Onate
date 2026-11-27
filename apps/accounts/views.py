@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from ..accounts.models import CivilianAccount, OfficialAccount, ModeratorAccount
 from ..donation.models import Donation
 from ..profiles.models import Profile
+from ..verification_request.models import VerificationRequest
 from django.utils import timezone
 # Create your views here.
 @login_required
@@ -19,8 +20,8 @@ def official_account(request, id):
     official_account_query = OfficialAccount.objects.get(id=id)
     user = official_account_query.user
     profile = Profile.objects.get(user=user)
-    
-    return render(request, "accounts/official_account.html", { "official_account_user": official_account_user, "official_account_query":official_account_query, "profile":profile, "user":user})
+    verification_request = VerificationRequest.objects.get(user=user)
+    return render(request, "accounts/official_account.html", { "official_account_user": official_account_user, "official_account_query":official_account_query, "profile":profile, "user":user, "verification_request":verification_request})
 
 @login_required
 def civilian_account(request):
