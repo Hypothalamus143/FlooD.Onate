@@ -8,12 +8,13 @@ from ..location.models import Region, Province, CityMunicipality, Baranggay
 from ..donation.models import Donation
 from django.db.models import Sum
 from django.urls import reverse
+from django.utils import timezone
 from urllib.parse import urlencode
 
 # Create your views here.
 @login_required
 def donation_drives(request):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     donation_drives = DonationDrive.objects.all()
     official_account_id = request.GET.get("official_account_id")
     baranggay_id = request.GET.get("baranggay_id")
@@ -25,7 +26,7 @@ def donation_drives(request):
 
 @login_required
 def donation_drive_details(request, id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     civilian_accont = CivilianAccount.objects.get(user=request.user)
     donation_drive = DonationDrive.objects.get(id=id)
     donations = Donation.objects.filter(donation_drive=donation_drive)
@@ -38,7 +39,7 @@ def donation_drive_details(request, id):
 
 @login_required
 def create_donation_drive(request, city_municipality_id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     if official_account is None:
         return redirect("home:home")
     queryset = Baranggay.objects.filter(city_municipality_id=city_municipality_id)
@@ -58,7 +59,7 @@ def create_donation_drive(request, city_municipality_id):
 
 @login_required
 def create_receipt(request, donation_drive_id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     donation_drive = DonationDrive.objects.get(id=donation_drive_id, official_account=official_account)
     if official_account is None:
         return redirect("home:home")
@@ -75,7 +76,7 @@ def create_receipt(request, donation_drive_id):
 
 @login_required
 def create_event_photo(request, donation_drive_id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     donation_drive = DonationDrive.objects.get(id=donation_drive_id, official_account=official_account)
     if official_account is None:
         return redirect("home:home")
@@ -92,7 +93,7 @@ def create_event_photo(request, donation_drive_id):
 
 @login_required
 def create_affidavit_of_liquidation(request, donation_drive_id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     donation_drive = DonationDrive.objects.get(id=donation_drive_id, official_account=official_account)
     if official_account is None:
         return redirect("home:home")
@@ -109,7 +110,7 @@ def create_affidavit_of_liquidation(request, donation_drive_id):
 
 @login_required
 def receipt_details(request, id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     receipt = Receipt.objects.get(id=id)
     if request.method == "POST":
         form = ReceiptForm(request.POST, request.FILES, instance=receipt)
@@ -124,7 +125,7 @@ def receipt_details(request, id):
 
 @login_required
 def event_photo_details(request, id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     event_photo = EventPhoto.objects.get(id=id)
     if request.method == "POST":
         form = EventPhotoForm(request.POST, request.FILES, instance=event_photo)
@@ -139,7 +140,7 @@ def event_photo_details(request, id):
 
 @login_required
 def affidavit_of_liquidation_details(request, id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     affidavit_of_liquidation = AffidavitOfLiquidation.objects.get(id=id)
     if request.method == "POST":
         form = AffidavitOfLiquidationForm(request.POST, request.FILES, instance=affidavit_of_liquidation)
@@ -154,7 +155,7 @@ def affidavit_of_liquidation_details(request, id):
 
 @login_required
 def select_region(request):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     if(official_account is None):
         return redirect("home:home")
     if request.method == "POST":
@@ -168,7 +169,7 @@ def select_region(request):
 
 @login_required
 def select_province(request, region_id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     if(official_account is None):
         return redirect("home:home")
     queryset = Province.objects.filter(region_id=region_id)
@@ -185,7 +186,7 @@ def select_province(request, region_id):
 
 @login_required
 def select_city_municipality(request, province_id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     if(official_account is None):
         return redirect("home:home")
     queryset = CityMunicipality.objects.filter(province_id=province_id)

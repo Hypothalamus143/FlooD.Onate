@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from ..accounts.models import CivilianAccount, OfficialAccount, ModeratorAccount
 from ..donation.models import Donation
 from ..profiles.models import Profile
+from django.utils import timezone
 # Create your views here.
 @login_required
 def accounts(request):
@@ -14,7 +15,7 @@ def accounts(request):
 
 @login_required
 def official_account(request, id):
-    official_account_user = OfficialAccount.objects.filter(user=request.user).first()
+    official_account_user = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     official_account_query = OfficialAccount.objects.get(id=id)
     user = official_account_query.user
     profile = Profile.objects.get(user=user)

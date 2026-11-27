@@ -4,6 +4,7 @@ from ..accounts.models import CivilianAccount, OfficialAccount
 from ..donation_drive.models import DonationDrive
 from .forms import DonationForm, DonationManagementForm
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 # Create your views here.
 
 @login_required
@@ -23,7 +24,7 @@ def donation(request, donation_drive_id):
 
 @login_required
 def donation_details(request, id):
-    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    official_account = OfficialAccount.objects.filter(user=request.user).filter(expiry_date__lt=timezone.localdate()).first()
     civilian_account = CivilianAccount.objects.filter(user=request.user).first()
     donation = Donation.objects.get(id=id)
     if(not (civilian_account == donation.civilian_account or official_account == donation.donation_drive.official_account)):
