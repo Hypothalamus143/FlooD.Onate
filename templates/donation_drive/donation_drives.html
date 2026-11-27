@@ -13,7 +13,7 @@
             {% for d in donation_drives %}
                 <tr>
                     <td><a href="{% url 'donation_drive:donation_drive_details' d.id  %}">{{d.id}}</a></td>
-                    <td>{{d.baranggay}}</td>
+                    <td><a href="{% url 'home:home' %}?baranggay_id={{d.baranggay_id}}">{{d.baranggay}}</a></td>
                     <td>{{d.start_date}}</td>
                     <td>{{d.duration}} days</td>
                     <td>{{d.target_amount}}</td>

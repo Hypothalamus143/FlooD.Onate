@@ -9,9 +9,12 @@ from ..donation_drive.models import DonationDrive
 def home(request):
     with open("data/philsa_flood_web.geojson", "r", encoding="utf-8") as f:
         flood_geojson = f.read()
-
+    donation_drives = DonationDrive.objects.all()
+    baranggay_id = request.GET.get("baranggay_id")
+    if baranggay_id:
+        donation_drives = donation_drives.filter(baranggay_id=baranggay_id)
     drives = list(
-        DonationDrive.objects.values(
+        donation_drives.values(
             "baranggay__baranggay_name",
             "baranggay__city_municipality__city_municipality_name",
             "baranggay__latitude",

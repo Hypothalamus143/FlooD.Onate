@@ -1,72 +1,85 @@
 {% extends 'base.html' %}
-{% load static%}
-{% block head-extras %}>
+{% load static %}
+{% block head-extras %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
- <style>
-    body {
-      margin: 0;
-      padding: 24px;
-      font-family: system-ui, sans-serif;
-      background: #f5f7fa;
-    }
-    .map-card {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 16px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    }
-    #map {
-      height: 450px;
-      width: 100%;
-      background: #eef2f6;
-    }
-  </style>
+<style>
+  body {
+    margin: 0;
+    padding: 24px;
+    font-family: system-ui, sans-serif;
+    background: #f5f7fa;
+  }
+  .map-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+  #map {
+    height: 450px;
+    width: 100%;
+    background: #eef2f6;
+  }
+</style>
 {% endblock %}
-{%block title%}Dashboard{% endblock %}
-{%block content%}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
 <h2>Last Update: September 7, 2026</h2>
 <div class="map-card">
-    <div id="map"></div>
-  </div>
+  <div id="map"></div>
+</div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    const map = L.map("map", {
-      preferCanvas: true, // draws vectors on <canvas> instead of heavy SVG DOM nodes
-      zoomAnimation: false,
-      fadeAnimation: false
-    }).setView([10.3333, 123.9333], 10);
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map("map", {
+    preferCanvas: true, // draws vectors on <canvas> instead of heavy SVG DOM nodes
+    zoomAnimation: false,
+    fadeAnimation: false
+  }).setView([10.3333, 123.9333], 10);
 
-    // Lighter gray base layer (or comment this out completely for zero tile requests)
-    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
-      maxZoom: 16,
-      attribution: "Tiles &copy; Esri"
-    }).addTo(map);
+  // Lighter gray base layer (or comment this out completely for zero tile requests)
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+    maxZoom: 16,
+    attribution: "Tiles &copy; Esri"
+  }).addTo(map);
 
-    const floodData = {{ flood_geojson|safe }};
-    L.geoJSON(floodData, {
-      style: {
-        stroke: false,       // skip border strokes for faster rendering
-        fillColor: "#e74c3c",
-        fillOpacity: 0.45
+  const floodData = {{ flood_geojson|safe }};
+  L.geoJSON(floodData, {
+    style: {
+      stroke: false,       // skip border strokes for faster rendering
+      fillColor: "#e74c3c",
+      fillOpacity: 0.45
+    }
+  }).addTo(map);
+
+  const drives = {{ drives_json|safe }};
+  let firstCoord = null;
+
+  drives.forEach(d => {
+    if (d.baranggay__latitude != null && d.baranggay__longitude != null) {
+      const lat = Number(d.baranggay__latitude);
+      const lng = Number(d.baranggay__longitude);
+
+      if (!firstCoord && !Number.isNaN(lat) && !Number.isNaN(lng)) {
+        firstCoord = [lat, lng];
       }
-    }).addTo(map);
 
-    const drives = {{ drives_json|safe }};
-    drives.forEach(d => {
-      if (d.baranggay__latitude != null && d.baranggay__longitude != null) {
-        L.circleMarker([d.baranggay__latitude, d.baranggay__longitude], {
-          radius: 6,
-          color: "#1d4ed8",
-          fillColor: "#2563eb",
-          fillOpacity: 0.9,
-          weight: 1.5
-        })
-          .addTo(map)
-          .bindPopup(`<b>Brgy. ${d.baranggay__baranggay_name}</b><br>${d.baranggay__city_municipality__city_municipality_name}<br><a href="{% url 'donation_drive:donation_drives' %}?baranggay_id=${d.baranggay_id}">Search Donation Drives</a>`);
-      }
-    });
-  </script>
+      L.circleMarker([lat, lng], {
+        radius: 6,
+        color: "#1d4ed8",
+        fillColor: "#2563eb",
+        fillOpacity: 0.9,
+        weight: 1.5
+      })
+        .addTo(map)
+        .bindPopup(`<b>Brgy. ${d.baranggay__baranggay_name}</b><br>${d.baranggay__city_municipality__city_municipality_name}<br><a href="{% url 'donation_drive:donation_drives' %}?baranggay_id=${d.baranggay_id}">Search Donation Drives</a>`);
+    }
+  });
+
+  if (firstCoord) {
+    map.setView(firstCoord, 13);
+  }
+</script>
 {% endblock %}

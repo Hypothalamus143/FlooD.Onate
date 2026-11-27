@@ -6,7 +6,7 @@
     <table>
         <tr>
             <td><b>Baranggay</b></td>
-            <td>{{ donation_drive.baranggay}}</td>
+            <td><a href="{% url 'home:home' %}?baranggay_id={{d.baranggay_id}}">{{donation_drive.baranggay}}</a></td>
         </tr>
         <tr>
             <td><b>Start Date</b></td>
