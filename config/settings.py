@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'apps',
     "apps.profiles",
     "apps.users",
-    "apps.user_settings",
     "apps.login",
     "apps.logout",
     "apps.home",
