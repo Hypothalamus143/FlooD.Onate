@@ -11,17 +11,17 @@ gdf = gdf[~gdf.geometry.is_empty & gdf.geometry.notna()]
 # 2. Drop tiny flood polygons (e.g., smaller than 50,000 m² ≈ 5 hectares)
 # EPSG:32651 works well for Central Visayas / eastern PH; use EPSG:32650 for western PH
 gdf_proj = gdf.to_crs(epsg=32651)
-gdf = gdf[gdf_proj.geometry.area >= 50_000].copy()
+gdf = gdf[gdf_proj.geometry.area >= 1_000_000].copy()
 
 # 3. Simplify geometry more aggressively (in degrees; ~0.002–0.005 is ~200m–500m)
 gdf = gdf.to_crs(epsg=4326)
-gdf["geometry"] = gdf["geometry"].simplify(tolerance=0.0025, preserve_topology=True)
+gdf["geometry"] = gdf["geometry"].simplify(tolerance=0.005, preserve_topology=True)
 gdf = gdf[~gdf.geometry.is_empty & gdf.geometry.notna()]
 
 # 4. Round coordinate decimals (5 decimals ≈ 1.1m precision, trims JSON size)
 geojson_obj = json.loads(gdf.to_json())
 
-def round_coords(coords, precision=5):
+def round_coords(coords, precision=4):
     if isinstance(coords[0], (int, float)):
         return [round(coords[0], precision), round(coords[1], precision)]
     return [round_coords(c, precision) for c in coords]

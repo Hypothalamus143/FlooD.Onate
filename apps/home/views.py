@@ -11,12 +11,13 @@ def home(request):
         flood_geojson = f.read()
 
     drives = list(
-        DonationDrive.objects.select_related("baranggay").values(
+        DonationDrive.objects.values(
             "baranggay__baranggay_name",
-            "baranggay__city_municipality",
+            "baranggay__city_municipality__city_municipality_name",
             "baranggay__latitude",
             "baranggay__longitude",
-        )
+            "baranggay_id"
+        ).distinct()
     )
     return render(request, "home/home.html", {
         "flood_geojson": flood_geojson,

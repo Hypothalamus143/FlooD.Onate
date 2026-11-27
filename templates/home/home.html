@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static%}
-{% block head-extras %}
+{% block head-extras %}>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
  <style>
     body {
@@ -26,6 +26,7 @@
 {% endblock %}
 {%block title%}Dashboard{% endblock %}
 {%block content%}
+<h2>Last Update: September 7, 2026</h2>
 <div class="map-card">
     <div id="map"></div>
   </div>
@@ -64,7 +65,7 @@
           weight: 1.5
         })
           .addTo(map)
-          .bindPopup(`<b>Brgy. ${d.baranggay__baranggay_name}</b><br>${d.baranggay__city_municipality}`);
+          .bindPopup(`<b>Brgy. ${d.baranggay__baranggay_name}</b><br>${d.baranggay__city_municipality__city_municipality_name}<br><a href="{% url 'donation_drive:donation_drives' %}?baranggay_id=${d.baranggay_id}">Search Donation Drives</a>`);
       }
     });
   </script>

@@ -14,8 +14,11 @@ def donation_drives(request):
     official_account = OfficialAccount.objects.filter(user=request.user).first()
     donation_drives = DonationDrive.objects.all()
     official_account_id = request.GET.get("official_account_id")
+    baranggay_id = request.GET.get("baranggay_id")
     if official_account_id:
         donation_drives = donation_drives.filter(official_account_id=official_account_id)
+    if baranggay_id:
+            donation_drives = donation_drives.filter(baranggay_id=baranggay_id)
     return render(request, "donation_drive/donation_drives.html", {"donation_drives":donation_drives, "official_account":official_account})
 
 @login_required
@@ -61,7 +64,7 @@ def create_receipt(request, donation_drive_id):
             receipt = form.save(commit=False)
             receipt.donation_drive = donation_drive
             receipt.save()
-            return redirect("donation_drive:donation_drive_management", donation_drive_id)
+            return redirect("donation_drive:donation_drive_details", donation_drive_id)
     form = ReceiptForm()
     return render(request, "donation_drive/create_receipt.html", {"form":form})
 
@@ -78,7 +81,7 @@ def create_event_photo(request, donation_drive_id):
             event_photo = form.save(commit=False)
             event_photo.donation_drive = donation_drive
             event_photo.save()
-            return redirect("donation_drive:donation_drive_management", donation_drive_id)
+            return redirect("donation_drive:donation_drive_details", donation_drive_id)
     form = EventPhotoForm()
     return render(request, "donation_drive/create_event_photo.html", {"form":form})
 
@@ -95,7 +98,7 @@ def create_affidavit_of_liquidation(request, donation_drive_id):
             affidavit = form.save(commit=False)
             affidavit.donation_drive = donation_drive
             affidavit.save()
-            return redirect("donation_drive:donation_drive_management", donation_drive_id)
+            return redirect("donation_drive:donation_drive_details", donation_drive_id)
     form = AffidavitOfLiquidationForm()
     return render(request, "donation_drive/create_affidavit_of_liquidation.html", {"form":form})
 
