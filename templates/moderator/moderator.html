@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Moderator</h1>
     <ul>
-        <li><a href="{% url 'moderator:verification_requests' %}">Verification Requests</a></li>
+        <li><a href="{% url 'moderator:verification_requests' %}?status=1">Verification Requests</a></li>
         <li><a href="{% url 'moderator:moderators' %}">Co-Moderators</a></li>
         <li><a href="{% url 'moderator:non_moderators' %}">Non-Moderators</a></li>
     </ul>

@@ -16,17 +16,23 @@ def moderator(request):
 def verification_requests(request):
     if(not ModeratorAccount.objects.filter(user=request.user).first()):
         return redirect("home:home")
-    verification_requests = VerificationRequest.objects.select_related('user')
+    verification_requests = VerificationRequest.objects.all()
+    status = request.GET.get("status")
+    if(status):
+        verification_requests = verification_requests.filter(status=status)
+    verification_requests = verification_requests.select_related('user')
     return render(request, "moderator/verification_requests.html", {"verification_requests":verification_requests})
 
 def verification_details(request, id):
     if(not ModeratorAccount.objects.filter(user=request.user).first()):
         return redirect("home:home")
     verification_request = VerificationRequest.objects.get(id=id)
+    official_account = OfficialAccount.objects.get(user=user)
     user = verification_request.user
     profile = Profile.objects.get(user=user)
+    official_account = OfficialAccount.objects.get(user=user)
     if request.method == "POST":
-        form_official_account = OfficialAccountForm(request.POST)
+        form_official_account = OfficialAccountForm(request.POST, instance=official_account)
         form_verification_request = VerificationRequestManagementForm(request.POST, instance=verification_request)
         if form_official_account.is_valid():
             official_account = form_official_account.save(commit=False)
@@ -38,7 +44,7 @@ def verification_details(request, id):
             form_verification_request.save()
             return redirect("moderator:verification_requests")
         print("Not Valid")
-    form_official_account = OfficialAccountForm()
+    form_official_account = OfficialAccountForm(instance=official_account)
     form_verification_request = VerificationRequestManagementForm(instance=verification_request)
     return render(request, "moderator/verification_details.html", {"verification_request":verification_request, "user":user, "form_official_account":form_official_account, "form_verification_request":form_verification_request, "profile":profile})
 

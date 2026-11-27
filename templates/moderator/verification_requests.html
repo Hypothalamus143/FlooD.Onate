@@ -3,6 +3,13 @@
 {%block title%}Moderator{% endblock %}
 {% block content %}
     <h1>Verification Requests</h1>
+    <label for="filter">Filter:</label>
+    <select id="filter" onchange="filter()">
+        <option value="0">All</option>
+        <option value="1">Pending</option>
+        <option value="2">For Revision</option>
+        <option value="3">Accepted</option>
+    </select>
         <table>
             <th>Verification Request ID</th>
             <th>Last Name</th>
@@ -17,5 +24,15 @@
                 </tr>       
             {% endfor %}
         </table>
-    
+    <script>
+        params = new URLSearchParams(window.location.search);
+        document.getElementById("filter").value = params.get("status") | 0
+         function filter(){
+            value = document.getElementById("filter").value
+            if(value == 0)
+                window.location.href = "{% url 'moderator:verification_requests' %}"
+            else
+                window.location.href = "{% url 'moderator:verification_requests' %}?status="+value
+        }
+    </script>
 {% endblock %}
