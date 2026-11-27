@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from ..accounts.models import OfficialAccount, CivilianAccount
 from .models import DonationDrive, Receipt, EventPhoto, AffidavitOfLiquidation
 from .forms import DonationDriveForm, ReceiptForm, EventPhotoForm, AffidavitOfLiquidationForm
+from ..location.forms import RegionForm, ProvinceForm, CityMunicipalityForm
+from ..location.models import Region, Province, CityMunicipality, Baranggay
 from ..donation.models import Donation
 from django.db.models import Sum
 from django.urls import reverse
@@ -35,12 +37,14 @@ def donation_drive_details(request, id):
     return render(request, "donation_drive/donation_drive_details.html", {"donation_drive":donation_drive, "official_account":official_account, "civilian_account":civilian_accont, "donations":donations, "receipts":receipts, "event_photos": event_photos, "affidavit_of_liquidations":affidavit_of_liquidations, "gathered_amount":gathered_amount, "used_amount":used_amount})
 
 @login_required
-def create_donation_drive(request):
+def create_donation_drive(request, city_municipality_id):
     official_account = OfficialAccount.objects.filter(user=request.user).first()
     if official_account is None:
         return redirect("home:home")
+    queryset = Baranggay.objects.filter(city_municipality_id=city_municipality_id)
     if request.method == "POST":
         form = DonationDriveForm(request.POST)
+        form.fields["baranggay"].queryset = queryset
         if form.is_valid():
             donation_drive = form.save(commit=False)
             donation_drive.official_account = official_account
@@ -49,6 +53,7 @@ def create_donation_drive(request):
             url = f"{reverse('donation_drive:donation_drives')}?{query}"
             return redirect(url)
     form = DonationDriveForm()
+    form.fields["baranggay"].queryset = queryset
     return render(request, "donation_drive/create_donation_drive.html", {"form":form})
 
 @login_required
@@ -146,3 +151,51 @@ def affidavit_of_liquidation_details(request, id):
     else:
         form = None
     return render(request, "donation_drive/affidavit_of_liquidation_details.html", {"official_account":official_account, "affidavit_of_liquidation":affidavit_of_liquidation, "form":form})
+
+@login_required
+def select_region(request):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    if(official_account is None):
+        return redirect("home:home")
+    if request.method == "POST":
+        form =  RegionForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            region = cleaned["region"]
+            return redirect("donation_drive:select_province", region.id)
+    form = RegionForm()
+    return render(request, "donation_drive/create_donation_drive.html", {"official_account":official_account, "form":form})
+
+@login_required
+def select_province(request, region_id):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    if(official_account is None):
+        return redirect("home:home")
+    queryset = Province.objects.filter(region_id=region_id)
+    if request.method == "POST":
+        form =  ProvinceForm(request.POST)
+        form.fields["province"].queryset = queryset
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            province = cleaned["province"]
+            return redirect("donation_drive:select_city_municipality", province.id)
+    form = ProvinceForm()
+    form.fields["province"].queryset = queryset
+    return render(request, "donation_drive/create_donation_drive.html", {"official_account":official_account, "form":form})
+
+@login_required
+def select_city_municipality(request, province_id):
+    official_account = OfficialAccount.objects.filter(user=request.user).first()
+    if(official_account is None):
+        return redirect("home:home")
+    queryset = CityMunicipality.objects.filter(province_id=province_id)
+    if request.method == "POST":
+        form =  CityMunicipalityForm(request.POST)
+        form.fields["city_municipality"].queryset = queryset
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            city_municipality = cleaned["city_municipality"]
+            return redirect("donation_drive:create_donation_drive", city_municipality.id)
+    form = CityMunicipalityForm()
+    form.fields["city_municipality"].queryset = queryset
+    return render(request, "donation_drive/create_donation_drive.html", {"official_account":official_account, "form":form})

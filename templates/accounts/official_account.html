@@ -38,7 +38,7 @@
     <ul>
         <li><a href="{% url 'donation_drive:donation_drives' %}?official_account_id={{ official_account_query.id }}">Donation Drives</a></li>
         {% if official_account_user == official_account_query %}
-            <li><a href="{% url 'donation_drive:create_donation_drive' %}">Create New Donation Drive</a></li>
+            <li><a href="{% url 'donation_drive:select_region' %}">Create New Donation Drive</a></li>
         {% endif %}
     </ul>
     
